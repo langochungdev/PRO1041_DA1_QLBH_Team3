@@ -1,18 +1,38 @@
 // kha
 package UI;
 
+<<<<<<< HEAD:src/main/java/UI/CaLam.java
 
 public class CaLam extends javax.swing.JDialog {
 
     public CaLam(java.awt.Frame parent, boolean modal) {
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
+/**
+ *
+ * @author haivo
+ */
+public class ChaoD extends javax.swing.JDialog {
+
+    /**
+     * Creates new form LoadingJDialog
+     */
+    public ChaoD(java.awt.Frame parent, boolean modal) {
+>>>>>>> 5cefa0f8ce1c74ba39fa620dd14b58beb3533a4d:src/main/java/UI/ChaoD.java
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        loading();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+<<<<<<< HEAD:src/main/java/UI/CaLam.java
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         lblMaNV = new javax.swing.JLabel();
@@ -34,8 +54,20 @@ public class CaLam extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+=======
+        jLabel2 = new javax.swing.JLabel();
+        pgbLoading = new javax.swing.JProgressBar();
+>>>>>>> 5cefa0f8ce1c74ba39fa620dd14b58beb3533a4d:src/main/java/UI/ChaoD.java
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/pucapuca_market__1_-removebg-preview (1).png"))); // NOI18N
+        jLabel2.setOpaque(true);
+
+        pgbLoading.setStringPainted(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -193,6 +225,7 @@ public class CaLam extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD:src/main/java/UI/CaLam.java
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,6 +243,17 @@ public class CaLam extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+=======
+            .addComponent(pgbLoading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pgbLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+>>>>>>> 5cefa0f8ce1c74ba39fa620dd14b58beb3533a4d:src/main/java/UI/ChaoD.java
         );
 
         pack();
@@ -233,21 +277,35 @@ public class CaLam extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CaLam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChaoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CaLam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChaoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CaLam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChaoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CaLam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChaoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CaLam dialog = new CaLam(new javax.swing.JFrame(), true);
+                ChaoD dialog = new ChaoD(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -260,6 +318,7 @@ public class CaLam extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+<<<<<<< HEAD:src/main/java/UI/CaLam.java
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -267,19 +326,64 @@ public class CaLam extends javax.swing.JDialog {
     private javax.swing.JButton jButton5;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblMaNV;
+    private javax.swing.JLabel lblMaNV1;
+    private javax.swing.JLabel lblMaNV2;
+    private javax.swing.JLabel lblMaNV3;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblMatKhau1;
+    private javax.swing.JLabel lblMatKhau10;
+    private javax.swing.JLabel lblMatKhau11;
     private javax.swing.JLabel lblMatKhau2;
+    private javax.swing.JLabel lblMatKhau3;
+    private javax.swing.JLabel lblMatKhau4;
+    private javax.swing.JLabel lblMatKhau5;
+    private javax.swing.JLabel lblMatKhau6;
+    private javax.swing.JLabel lblMatKhau7;
+    private javax.swing.JLabel lblMatKhau8;
+    private javax.swing.JLabel lblMatKhau9;
     private javax.swing.JPasswordField txtMK;
+    private javax.swing.JPasswordField txtMK1;
+    private javax.swing.JPasswordField txtMK2;
+    private javax.swing.JPasswordField txtMK3;
     private javax.swing.JTextField txtMa;
+    private javax.swing.JTextField txtMa1;
+    private javax.swing.JTextField txtMa2;
+    private javax.swing.JTextField txtMa3;
+=======
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar pgbLoading;
+>>>>>>> 5cefa0f8ce1c74ba39fa620dd14b58beb3533a4d:src/main/java/UI/ChaoD.java
     // End of variables declaration//GEN-END:variables
+
+    private void loading() {
+        new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int value = pgbLoading.getValue();
+                if(value < pgbLoading.getMaximum()){
+                    pgbLoading.setValue(value + 1);
+                } else {
+                    ChaoD.this.dispose();
+                }
+            }
+        }).start();
+    }
 }
