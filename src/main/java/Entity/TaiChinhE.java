@@ -1,4 +1,4 @@
-package Enity;
+package Entity;
 
 public class TaiChinhE {
     
