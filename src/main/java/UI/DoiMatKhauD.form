@@ -27,17 +27,17 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtMaNV" max="32767" attributes="0"/>
+                  <Component id="txtTenTK" max="32767" attributes="0"/>
                   <Component id="jLabel2" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
                   <Component id="txtMatKhau1" alignment="0" pref="180" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="41" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel5" min="-2" pref="146" max="-2" attributes="0"/>
                   <Component id="txtMatKhau2" min="-2" pref="180" max="-2" attributes="0"/>
                   <Component id="txtMatKhau" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="146" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
@@ -65,7 +65,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtMaNV" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTenTK" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMatKhau" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -105,7 +105,7 @@
         <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtMaNV">
+    <Component class="javax.swing.JTextField" name="txtTenTK">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>

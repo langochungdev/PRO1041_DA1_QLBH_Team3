@@ -1,11 +1,13 @@
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\DAO\TaiChinhDAO.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Enity\TaiChinhE.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\UI\CaLam.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\UI\NhanVien.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\UI\TaiChinh.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Utils\Auth.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Utils\JdbcHelper.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Utils\MailSender.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Utils\MsgBox.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Utils\Xdate.java
-C:\Users\admin\OneDrive\Tài liệu\NetBeansProjects\PRO1041\PRO1041_DA1_QLBH_Team3\src\main\java\Utils\XImage.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\DAO\MainDAO.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\DAO\NhanVienDAO.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Entity\NhanVienE.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\UI\ChaoD.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\UI\DoiMatKhauD.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\UI\LoginD.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\UI\Main.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Utils\Auth.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Utils\JdbcHelper.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Utils\MailSender.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Utils\MsgBox.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Utils\Xdate.java
+C:\Users\lango\Documents\NetBeansProjects\PRO1041\src\main\java\Utils\XImage.java
