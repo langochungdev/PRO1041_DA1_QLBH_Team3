@@ -41,7 +41,7 @@ public class ChaoD extends javax.swing.JDialog {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/main_logo.png"))); // NOI18N
         jLabel2.setOpaque(true);
 
         pgbLoading.setStringPainted(true);
