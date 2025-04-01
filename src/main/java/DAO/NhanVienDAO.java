@@ -8,28 +8,26 @@ import java.util.List;
 
 public class NhanVienDAO extends MainDAO<NhanVienE, String> {
 
-    String INSERT_SQL = "INSERT INTO NhanVien (MaNV, TenTaiKhoan, MatKhau, Email, VaiTro, HoTen) VALUES (?, ?, ?, ?, ?, ?)";
-    String UPDATE_SQL = "UPDATE NhanVien SET TenTaiKhoan=?, MatKhau=?, HoTen=?, VaiTro=?, Email=? WHERE MaNV=?";
+    String INSERT_SQL = "INSERT INTO NhanVien (MaNV, MatKhau, Email, VaiTro, HoTen) VALUES (?, ?, ?, ?, ?, ?)";
+    String UPDATE_SQL = "UPDATE NhanVien SET MatKhau=?, HoTen=?, VaiTro=?, Email=? WHERE MaNV=?";
     String DELETE_SQL = "DELETE FROM NhanVien WHERE MaNV=?";
     String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
     String SELECT_BY_ID_SQL = "SELECT * FROM NhanVien WHERE MaNV=?";
-    String SELECT_BY_TenTK = "SELECT * FROM NhanVien WHERE TenTaiKhoan=?";
 
     @Override
     public void insert(NhanVienE e) {
         JdbcHelper.execUpdate(INSERT_SQL,
                 e.getMaNV(),
                 e.getMatKhau(),
-                e.getHoTen(),
+                e.getEmail(),
                 e.isVaiTro(),
-                e.getEmail()
+                e.getHoTen()
         );
     }
 
     @Override
     public void update(NhanVienE e) {
         JdbcHelper.execUpdate(UPDATE_SQL,
-                e.getTenTK(),
                 e.getMatKhau(),
                 e.getHoTen(),
                 e.isVaiTro(),
@@ -57,14 +55,6 @@ public class NhanVienDAO extends MainDAO<NhanVienE, String> {
         return ds.get(0);
     }
 
-    public NhanVienE selectByTenTK(String tenTK) {
-        List<NhanVienE> ds = selectBySql(SELECT_BY_TenTK, tenTK);
-        if (ds.isEmpty()) {
-            return null;
-        }
-        return ds.get(0);
-    }
-
     @Override
     public List<NhanVienE> selectBySql(String sql, Object... args) {
         List<NhanVienE> ds = new ArrayList<>();
@@ -73,7 +63,6 @@ public class NhanVienDAO extends MainDAO<NhanVienE, String> {
             while (rs.next()) {
                 NhanVienE e = new NhanVienE();
                 e.setMaNV(rs.getString("MaNV"));
-                e.setTenTK(rs.getString("TenTaiKhoan"));
                 e.setMatKhau(rs.getString("MatKhau"));
                 e.setEmail(rs.getString("Email"));
                 e.setHoTen(rs.getString("HoTen"));

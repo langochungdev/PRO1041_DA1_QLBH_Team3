@@ -50,17 +50,24 @@ public class TaiChinhD extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         rbtgThanhToan = new javax.swing.ButtonGroup();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        rdobgThanhToan = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         tabs = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbCongNo = new javax.swing.JTable();
+        txtSearch = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         rdoDaThanhToan = new javax.swing.JRadioButton();
         rdoChuaThanhToan = new javax.swing.JRadioButton();
-        txtSearch = new javax.swing.JTextField();
+        cbbSortTrangThai = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbDoanhThu = new javax.swing.JTable();
+
+        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,20 +82,37 @@ public class TaiChinhD extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã KH", "Tên KH", "SDT", "Số tiền", "Ngày thanh toán", "Trạng thái "
+                "MaHD", "Mã KH", "Tên KH", "SDT", "Số tiền", "Ngày nợ", "Ngày thanh toán"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                true, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tbCongNo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCongNoMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tbCongNo);
 
-        rbtgThanhToan.add(rdoDaThanhToan);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Cập nhật:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Sort by:");
+
+        rdobgThanhToan.add(rdoDaThanhToan);
         rdoDaThanhToan.setText("Đã thanh toán");
         rdoDaThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +120,7 @@ public class TaiChinhD extends javax.swing.JDialog {
             }
         });
 
-        rbtgThanhToan.add(rdoChuaThanhToan);
+        rdobgThanhToan.add(rdoChuaThanhToan);
         rdoChuaThanhToan.setText("Chưa thanh toán");
         rdoChuaThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,14 +128,10 @@ public class TaiChinhD extends javax.swing.JDialog {
             }
         });
 
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+        cbbSortTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa thanh toán", "Đã thanh toán" }));
+        cbbSortTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
+                cbbSortTrangThaiActionPerformed(evt);
             }
         });
 
@@ -122,13 +142,20 @@ public class TaiChinhD extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtSearch)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdoDaThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdoChuaThanhToan)))
+                        .addComponent(cbbSortTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdoDaThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdoChuaThanhToan))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -136,13 +163,18 @@ public class TaiChinhD extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rdoDaThanhToan)
-                        .addComponent(rdoChuaThanhToan))
-                    .addComponent(txtSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbbSortTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(rdoDaThanhToan))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdoChuaThanhToan)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         tabs.addTab("CÔNG NỢ", jPanel3);
@@ -173,7 +205,7 @@ public class TaiChinhD extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -212,22 +244,59 @@ public class TaiChinhD extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdoDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaThanhToanActionPerformed
-        fillTbCongNo("Đã thanh toán");
-    }//GEN-LAST:event_rdoDaThanhToanActionPerformed
-
-    private void rdoChuaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoChuaThanhToanActionPerformed
-        fillTbCongNo("Chưa thanh toán");
-    }//GEN-LAST:event_rdoChuaThanhToanActionPerformed
-
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-
-    }//GEN-LAST:event_txtSearchActionPerformed
-
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         String keyword = txtSearch.getText().trim();
         searchCongNo(keyword);
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void cbbSortTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortTrangThaiActionPerformed
+        String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
+
+        // Gọi phương thức trong DAO để lấy danh sách công nợ
+        List<Object[]> dsCongNo = tcdao.getCongNo(selectedItem);
+
+        // Cập nhật dữ liệu lên giao diện (giả sử bạn có một JTable)
+        DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
+        model.setRowCount(0);  // Xóa dữ liệu cũ
+        for (Object[] row : dsCongNo) {
+            model.addRow(row);  // Thêm dữ liệu mới vào bảng
+        }
+    }//GEN-LAST:event_cbbSortTrangThaiActionPerformed
+
+    private void rdoDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaThanhToanActionPerformed
+        String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
+        int rowIndex = tbCongNo.getSelectedRow();  // Giả sử tbCongNo là tên bảng JTable
+        if (rowIndex != -1) {
+            String maHD = tbCongNo.getValueAt(rowIndex, 0).toString();  // Cột đầu tiên chứa MaHD
+            tcdao.capNhatTrangThaiThanhToan(maHD, true);  // Gọi phương thức cập nhật trạng thái đã thanh toán
+        fillTbCongNo(selectedItem);
+        }
+    }//GEN-LAST:event_rdoDaThanhToanActionPerformed
+
+    private void rdoChuaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoChuaThanhToanActionPerformed
+        String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
+        int rowIndex = tbCongNo.getSelectedRow();  // Giả sử tbCongNo là tên bảng JTable
+        if (rowIndex != -1) {
+            String maHD = tbCongNo.getValueAt(rowIndex, 0).toString();  // Cột đầu tiên chứa MaHD
+            tcdao.capNhatTrangThaiThanhToan(maHD, false);  // Gọi phương thức cập nhật trạng thái chưa thanh toán
+        fillTbCongNo(selectedItem);
+        }
+    }//GEN-LAST:event_rdoChuaThanhToanActionPerformed
+
+    private void tbCongNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCongNoMouseClicked
+        int rowIndex = tbCongNo.getSelectedRow(); // Lấy dòng đang chọn
+    if (rowIndex != -1) {
+        // Cột trạng thái thanh toán (giả sử nó ở cột thứ 5, bạn có thể thay đổi index nếu cần)
+        String trangThai = tbCongNo.getValueAt(rowIndex, 6).toString().trim();  
+
+        // Kiểm tra giá trị trả về từ database
+        if (trangThai.equalsIgnoreCase("Chưa thanh toán") || trangThai.isEmpty()) {
+            rdoChuaThanhToan.setSelected(true);
+        } else {
+            rdoDaThanhToan.setSelected(true);
+        }
+    }
+    }//GEN-LAST:event_tbCongNoMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -270,14 +339,19 @@ public class TaiChinhD extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbbSortTrangThai;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.ButtonGroup rbtgThanhToan;
     private javax.swing.JRadioButton rdoChuaThanhToan;
     private javax.swing.JRadioButton rdoDaThanhToan;
+    private javax.swing.ButtonGroup rdobgThanhToan;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tbCongNo;
     private javax.swing.JTable tbDoanhThu;

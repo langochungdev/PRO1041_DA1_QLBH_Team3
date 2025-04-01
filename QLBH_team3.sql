@@ -1,29 +1,36 @@
 create database QLBH 
 use QLBH
+-- CHẠY TỪNG CỤM 1 
 
--- Bảng quản lý nhân viên
+
+-- CỤM 1 
 CREATE TABLE NhanVien (
-    MaNV INT IDENTITY(1,1) PRIMARY KEY,
-    TenTaiKhoan NVARCHAR(50) UNIQUE NOT NULL,
+    MaNV NVARCHAR(50) PRIMARY KEY,
     MatKhau NVARCHAR(255) NOT NULL,
     Email NVARCHAR(100) NULL,
     HoTen NVARCHAR(50) NOT NULL,
-    VaiTro BIT NOT NULL -- 1: Quản lý, 0: Nhân viên
+    VaiTro BIT NOT NULL
 );
 
--- Bảng nhà cung cấp
+CREATE TABLE CaLam (
+    MaCa INT IDENTITY(1,1) PRIMARY KEY,
+    MaNV NVARCHAR(50) NOT NULL,
+    NgayLam DATE NOT NULL,
+    CaLam NVARCHAR(10) CHECK (CaLam IN (N'Ca 1', N'Ca 2', N'Ca 3')) NOT NULL,
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+);
+
 CREATE TABLE NhaCungCap (
-    MaNCC INT IDENTITY(1,1) PRIMARY KEY,
+    MaNCC NVARCHAR(50) PRIMARY KEY,
     TenNCC NVARCHAR(100) NOT NULL,
     DiaChi NVARCHAR(255) NOT NULL,
     SoDienThoai NVARCHAR(15) NOT NULL
 );
 
--- Bảng nguyên liệu, liên kết với nhà cung cấp
 CREATE TABLE NguyenLieu (
-    MaNL INT IDENTITY(1,1) PRIMARY KEY,
+    MaNL NVARCHAR(50) PRIMARY KEY,
     TenNL NVARCHAR(100) NOT NULL,
-    MaNCC INT NOT NULL,
+    MaNCC NVARCHAR(50) NOT NULL,
     NgayNhap DATE NOT NULL,
     HanSuDung DATE NOT NULL,
     SoLuongTon INT CHECK (SoLuongTon >= 0) NOT NULL,
@@ -32,32 +39,30 @@ CREATE TABLE NguyenLieu (
     FOREIGN KEY (MaNCC) REFERENCES NhaCungCap(MaNCC)
 );
 
--- Bảng khách hàng
 CREATE TABLE KhachHang (
-    MaKH INT IDENTITY(1,1) PRIMARY KEY,
+    MaKH NVARCHAR(50) PRIMARY KEY,
     TenKH NVARCHAR(100) NOT NULL,
     SoDienThoai NVARCHAR(15) NOT NULL,
     DiaChi NVARCHAR(255) NOT NULL
 );
 
--- Bảng hóa đơn (gộp với đơn hàng)
 CREATE TABLE HoaDon (
-    MaHD INT PRIMARY KEY,
-    MaKH INT NOT NULL,
+    MaHD NVARCHAR(50) PRIMARY KEY,
+    MaKH NVARCHAR(50) NOT NULL,
     NgayDatHang DATE NOT NULL,
     TrangThai NVARCHAR(20) CHECK (TrangThai IN (N'Chờ xử lý', N'Đang giao', N'Đã giao')) NOT NULL,
     NgayThanhToan DATE NULL,
     SoTienThanhToan DECIMAL(18,2) NOT NULL,
-    MaNV INT NOT NULL,
+    MaNV NVARCHAR(50) NOT NULL,
     SoDienThoai NVARCHAR(15) NOT NULL,
+	TongTien DECIMAL(18,2) NULL,
     FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH),
     FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 );
 
--- Bảng chi tiết hóa đơn (gộp với chi tiết đơn hàng)
 CREATE TABLE ChiTietHoaDon (
-    MaHD INT NOT NULL,
-    MaNL INT NOT NULL,
+    MaHD NVARCHAR(50) NOT NULL,
+    MaNL NVARCHAR(50) NOT NULL,
     SoLuong INT CHECK (SoLuong > 0) NOT NULL,
     GiaBan DECIMAL(18,2) NOT NULL,
     PRIMARY KEY (MaHD, MaNL),
@@ -65,68 +70,86 @@ CREATE TABLE ChiTietHoaDon (
     FOREIGN KEY (MaNL) REFERENCES NguyenLieu(MaNL)
 );
 
--- DATA 
--- Dữ liệu mẫu cho bảng NhanVien
-INSERT INTO NhanVien (TenTaiKhoan, MatKhau, Email, HoTen, VaiTro) VALUES 
+
+
+
+-- CỤM 2 HẢI 
+CREATE TRIGGER trg_CapNhatTongTien ON ChiTietHoaDon
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    UPDATE HoaDon
+    SET TongTien = (SELECT SUM(SoLuong * GiaBan) 
+                    FROM ChiTietHoaDon 
+                    WHERE ChiTietHoaDon.MaHD = HoaDon.MaHD)
+    WHERE MaHD IN (SELECT DISTINCT MaHD FROM inserted UNION SELECT DISTINCT MaHD FROM deleted);
+END;
+
+
+
+
+-- CỤM 3 
+INSERT INTO NhanVien (MaNV, MatKhau, Email, HoTen, VaiTro) VALUES 
     ('hung', '123', '', N'Hùng', 1),
     ('kha', '123', '', N'Kha', 1),
     ('trung', '123', '', N'Trung', 1),
     ('hai', '123', '', N'Hải', 1);
 
--- Thêm nhà cung cấp
-INSERT INTO NhaCungCap (TenNCC, DiaChi, SoDienThoai) VALUES
-(N'Công ty A', N'123 Đường A, TP.HCM', N'0909123456'),
-(N'Công ty B', N'456 Đường B, Hà Nội', N'0912345678'),
-(N'Công ty C', N'789 Đường C, Đà Nẵng', N'0923456789');
+INSERT INTO CaLam (MaNV, NgayLam, CaLam) VALUES
+('hung', '2025-04-01', N'Ca 1'),
+('kha', '2025-04-01', N'Ca 2'),
+('trung', '2025-04-01', N'Ca 3'),
+('hai', '2025-04-02', N'Ca 1'),
+('hung', '2025-04-02', N'Ca 2'),
+('kha', '2025-04-02', N'Ca 3'),
+('trung', '2025-04-03', N'Ca 1');
 
--- Thêm nguyên liệu
-INSERT INTO NguyenLieu (TenNL, MaNCC, NgayNhap, HanSuDung, SoLuongTon, DonViTinh, GiaNhap) VALUES
-(N'Bột mì', 1, '2025-01-10', '2025-06-10', 100, N'kg', 20000),
-(N'Đường', 1, '2025-02-05', '2025-07-05', 200, N'kg', 15000),
-(N'Sữa', 2, '2025-03-15', '2025-05-15', 150, N'lít', 25000),
-(N'Trứng gà', 2, '2025-04-01', '2025-05-01', 300, N'quả', 5000),
-(N'Bơ', 3, '2025-01-20', '2025-07-20', 120, N'kg', 30000),
-(N'Muối', 3, '2025-02-25', '2025-08-25', 250, N'kg', 10000);
+INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SoDienThoai) VALUES
+('NCC01', N'Công ty A', N'123 Đường A, TP.HCM', N'0909123456'),
+('NCC02', N'Công ty B', N'456 Đường B, Hà Nội', N'0912345678'),
+('NCC03', N'Công ty C', N'789 Đường C, Đà Nẵng', N'0923456789');
 
--- Thêm khách hàng
-INSERT INTO KhachHang (TenKH, SoDienThoai, DiaChi) VALUES
-(N'Nguyễn Văn A', N'0987654321', N'789 Đường C, TP.HCM'),
-(N'Trần Thị B', N'0976543210', N'321 Đường D, Hà Nội'),
-(N'Lê Thị C', N'0965432109', N'654 Đường E, Đà Nẵng'),
-(N'Phạm Văn D', N'0954321098', N'987 Đường F, Cần Thơ');
+INSERT INTO NguyenLieu (MaNL, TenNL, MaNCC, NgayNhap, HanSuDung, SoLuongTon, DonViTinh, GiaNhap) VALUES
+('NL01', N'Bột mì','NCC01', '2025-01-10', '2025-06-10', 100, N'kg', 20000),
+('NL02', N'Đường','NCC02', '2025-02-05', '2025-07-05', 200, N'kg', 15000),
+('NL03', N'Sữa','NCC03', '2025-03-15', '2025-05-15', 150, N'lít', 25000),
+('NL04', N'Trứng gà','NCC01', '2025-04-01', '2025-05-01', 300, N'quả', 5000),
+('NL05', N'Bơ','NCC02', '2025-01-20', '2025-07-20', 120, N'kg', 30000),
+('NL06', N'Muối','NCC03', '2025-02-25', '2025-08-25', 250, N'kg', 10000);
 
--- Thêm hóa đơn
+INSERT INTO KhachHang (MaKH,TenKH, SoDienThoai, DiaChi) VALUES
+('KH01', N'Nguyễn Văn A', N'0987654321', N'789 Đường C, TP.HCM'),
+('KH02', N'Trần Thị B', N'0976543210', N'321 Đường D, Hà Nội'),
+('KH03', N'Lê Thị C', N'0965432109', N'654 Đường E, Đà Nẵng'),
+('KH04', N'Phạm Văn D', N'0954321098', N'987 Đường F, Cần Thơ');
+
 INSERT INTO HoaDon (MaHD, MaKH, NgayDatHang, TrangThai, NgayThanhToan, SoTienThanhToan, MaNV, SoDienThoai) VALUES
-(1, 1, '2025-01-20', N'Đã giao', '2025-01-21', 5000000, 1, '0987654321'),
-(2, 2, '2025-02-18', N'Đã giao', '2025-02-19', 7500000, 2, '0976543210'),
-(3, 3, '2025-03-25', N'Đã giao', '2025-03-26', 5000000, 3, '0965432109'),
-(4, 4, '2025-04-10', N'Đã giao', '2025-04-11', 10000000, 4, '0954321098'),
-(5, 1, '2025-01-28', N'Đã giao', '2025-01-29', 6000000, 2, '0987654321'),
-(6, 2, '2025-02-22', N'Đã giao', '2025-02-23', 8500000, 3, '0976543210'),
-(7, 3, '2025-02-05', N'Đã giao', NULL, 5000000, 1, '0965432109'),
-(8, 4, '2025-02-10', N'Đã giao', NULL, 7000000, 2, '0954321098'),
-(9, 1, '2025-02-15', N'Đã giao', NULL, 4000000, 3, '0987654321'),
-(10, 2, '2025-02-28', N'Đã giao', NULL, 9000000, 4, '0976543210');
+('HD01', 'KH01', '2025-01-20', N'Đã giao', '2025-01-21', 5000000, 'hung', '0987654321'),
+('HD02', 'KH02', '2025-02-18', N'Đã giao', '2025-02-19', 7500000, 'hung', '0976543210'),
+('HD03', 'KH03', '2025-03-25', N'Đã giao', '2025-03-26', 5000000, 'hung', '0965432109'),
+('HD04', 'KH04', '2025-04-10', N'Đã giao', '2025-04-11', 10000000, 'hung', '0954321098'),
+('HD05', 'KH01', '2025-01-28', N'Đã giao', '2025-01-29', 6000000, 'hung', '0987654321'),
+('HD06', 'KH02', '2025-02-22', N'Đã giao', '2025-02-23', 8500000, 'hung', '0976543210'),
+('HD07', 'KH03', '2025-02-05', N'Chờ xử lý', NULL, 5000000, 'hung', '0965432109'),
+('HD08', 'KH04', '2025-02-10', N'Chờ xử lý', NULL, 7000000, 'hung', '0954321098'),
+('HD09', 'KH01', '2025-02-15', N'Đang giao', NULL, 4000000, 'hung', '0987654321'),
+('HD20', 'KH02', '2025-02-28', N'Đang giao', NULL, 9000000, 'hung', '0976543210');
 
--- Thêm chi tiết hóa đơn
 INSERT INTO ChiTietHoaDon (MaHD, MaNL, SoLuong, GiaBan) VALUES
-(1, 1, 2, 25000),
-(2, 2, 5, 15000),
-(3, 3, 3, 30000),
-(4, 4, 10, 10000),
-(5, 5, 4, 35000),
-(6, 6, 6, 12000),
-(1, 2, 1, 18000),
-(2, 3, 2, 28000),
-(3, 4, 5, 5000),
-(4, 5, 2, 33000);
+('HD01', 'NL01', 2, 25000),
+('HD02', 'NL02', 5, 15000),
+('HD03', 'NL03', 3, 30000),
+('HD04', 'NL04', 10, 10000),
+('HD05', 'NL05', 4, 35000),
+('HD06', 'NL06', 6, 12000),
+('HD01', 'NL02', 1, 18000),
+('HD02', 'NL03', 2, 28000),
+('HD03', 'NL04', 5, 5000),
+('HD04', 'NL05', 2, 33000);
 
 
 
--- view khong chay 
-SELECT * FROM View_CongNo
-select*from View_DoanhThu
-
+-- CỤM 4 HÙNG 
 CREATE VIEW View_CongNo AS
 SELECT 
     KH.MaKH, 
@@ -139,6 +162,8 @@ FROM HoaDon HD
 JOIN KhachHang KH ON HD.MaKH = KH.MaKH;
 
 
+
+-- CỤM 5 HÙNG 
 CREATE VIEW View_DoanhThu AS
 WITH Nhap AS (
     SELECT 
@@ -205,13 +230,26 @@ FULL JOIN BanItRanked bi ON COALESCE(n.Thang, x.Thang) = bi.Thang;
 
 
 
+-- CỤM 6 TRUNG 
+CREATE VIEW View_NguyenLieu AS
+SELECT 
+    nl.MaNL,
+    nl.TenNL,
+    nl.SoLuongTon AS SoLuongNhap,
+    COALESCE(SUM(cthd.SoLuong), 0) AS SoLuongDaBan,
+    nl.SoLuongTon - COALESCE(SUM(cthd.SoLuong), 0) AS SoLuongConLai,
+    nl.DonViTinh,
+    nl.NgayNhap,
+    nl.HanSuDung,
+    ncc.TenNCC AS NhaCungCap,
+    nl.GiaNhap
+FROM NguyenLieu nl
+LEFT JOIN ChiTietHoaDon cthd ON nl.MaNL = cthd.MaNL
+LEFT JOIN NhaCungCap ncc ON nl.MaNCC = ncc.MaNCC
+GROUP BY nl.MaNL, nl.TenNL, nl.SoLuongTon, nl.DonViTinh, nl.NgayNhap, nl.HanSuDung, ncc.TenNCC, nl.GiaNhap;
 
 
-
-
-
-
-
-
-
-
+-- KHÔNG CHẠY 
+SELECT * FROM View_NguyenLieu
+SELECT * FROM View_CongNo
+SELECT * FROM View_DoanhThu

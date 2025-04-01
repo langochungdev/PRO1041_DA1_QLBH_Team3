@@ -25,7 +25,7 @@ public class LoginD extends javax.swing.JDialog {
     void dangNhap() {
         String tenTK = txtTK.getText();
         String pw = new String(txtMK.getPassword());
-        NhanVienE nv = dao.selectByTenTK(tenTK);
+        NhanVienE nv = dao.selectById(tenTK);
 
         if (nv == null) {
             MsgBox.alert(this, "Sai đăng nhập");
@@ -62,7 +62,7 @@ public class LoginD extends javax.swing.JDialog {
     
     boolean QuenMatKhau(){
         String TenTK = txtTK.getText();
-        NhanVienE nv = dao.selectByTenTK(TenTK);
+        NhanVienE nv = dao.selectById(TenTK);
         if(nv == null){
             JOptionPane.showMessageDialog(this, "khong tim thay nhan vien");
             return false;
@@ -283,7 +283,7 @@ public class LoginD extends javax.swing.JDialog {
 
     private void lbQuanMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbQuanMatKhauMouseClicked
         String TenTK = txtTK.getText();
-        NhanVienE nv = dao.selectByTenTK(TenTK);
+        NhanVienE nv = dao.selectById(TenTK);
         if(QuenMatKhau()){
             JOptionPane.showMessageDialog(this, "Gửi mật khẩu thành công về mail: "+nv.getEmail());
         }else{

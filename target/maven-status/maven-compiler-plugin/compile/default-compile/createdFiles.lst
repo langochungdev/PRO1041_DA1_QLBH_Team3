@@ -38,7 +38,6 @@ UI\ChaoD$1$1.class
 UI\LoginD$3.class
 Utils\MailSender.class
 DAO\TaiChinhDAO.class
-UI\TaiChinhD$7$1.class
 DAO\DonHangDAO.class
 UI\QuanLyKhoD$6.class
 UI\NhanVienD$1.class
@@ -80,6 +79,7 @@ UI\CaLamD$7.class
 UI\QuanLyKhoD$5.class
 Entity\DonHangE.class
 UI\QuanLyKhoD$7$1.class
+UI\TaiChinhD$8$1.class
 UI\QLDonHangD$13.class
 UI\QuanLyKhoD$4.class
 DAO\MainDAO.class
@@ -106,6 +106,7 @@ UI\CaLamD$14.class
 UI\NhanVienD$10.class
 UI\QuanLyKhoD$1.class
 UI\QLDonHangD$10.class
+UI\TaiChinhD$8.class
 UI\CaLamD$4.class
 UI\NhanVienD.class
 UI\NhanVienD$6.class
