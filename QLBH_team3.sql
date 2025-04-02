@@ -96,13 +96,13 @@ INSERT INTO NhanVien (MaNV, MatKhau, Email, HoTen, VaiTro) VALUES
     ('hai', '123', '', N'Hải', 1);
 
 INSERT INTO CaLam (MaCa, MaNV, NgayLam, CaLam) VALUES
-('ca1', 'hung', '2025-04-01', N'Ca 1'),
-('ca2', 'kha', '2025-04-01', N'Ca 2'),
-('ca3', 'trung', '2025-04-01', N'Ca 3'),
-('ca4', 'hai', '2025-04-02', N'Ca 1'),
-('ca5', 'hung', '2025-04-02', N'Ca 2'),
-('ca6', 'kha', '2025-04-02', N'Ca 3'),
-('ca7', 'trung', '2025-04-03', N'Ca 1');
+('c1', 'hung', '2025-04-01', N'Ca 1'),
+('c2', 'kha', '2025-04-01', N'Ca 2'),
+('c3', 'trung', '2025-04-01', N'Ca 3'),
+('c4', 'hai', '2025-04-02', N'Ca 1'),
+('c5', 'hung', '2025-04-02', N'Ca 2'),
+('c6', 'kha', '2025-04-02', N'Ca 3'),
+('c7', 'trung', '2025-04-03', N'Ca 1');
 
 INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SoDienThoai) VALUES
 ('NCC01', N'Công ty A', N'123 Đường A, TP.HCM', N'0909123456'),
@@ -250,7 +250,20 @@ LEFT JOIN NhaCungCap ncc ON nl.MaNCC = ncc.MaNCC
 GROUP BY nl.MaNL, nl.TenNL, nl.SoLuongTon, nl.DonViTinh, nl.NgayNhap, nl.HanSuDung, ncc.TenNCC, nl.GiaNhap;
 
 
+-- Cụm 7 --
+CREATE VIEW v_CaLam AS
+SELECT 
+    c.MaCa, 
+    c.MaNV, 
+    n.HoTen AS TenNhanVien, 
+    c.NgayLam, 
+    c.CaLam
+FROM CaLam c
+JOIN NhanVien n ON c.MaNV = n.MaNV;
+
+
 -- KHÔNG CHẠY 
 SELECT * FROM View_NguyenLieu
 SELECT * FROM View_CongNo
 SELECT * FROM View_DoanhThu
+SELECT * FROM v_CaLam
