@@ -12,6 +12,7 @@ UI\QuanLyKhoD.class
 Entity\NhanVienE.class
 UI\LoginD$2.class
 UI\QLDonHangD$7.class
+Entity\NhaCungCapE.class
 UI\CaLamD$11.class
 UI\DoiMatKhauD$2.class
 UI\QuanLyKhoD$2.class
@@ -26,6 +27,7 @@ UI\CaLamD$10.class
 UI\QLDonHangD$6.class
 UI\LoginD$1.class
 UI\NhanVienD$2.class
+DAO\NhaCungCapDAO.class
 UI\CaLamD$15.class
 UI\DoiMatKhauD$3.class
 UI\NhanVienD$9.class
@@ -48,6 +50,7 @@ UI\NhanVienD$16.class
 UI\QLDonHangD$14.class
 UI\NhanVienD$19.class
 UI\CaLamD$8.class
+UI\QuanLyKhoD$15.class
 Utils\Xdate.class
 UI\NhanVienD$17.class
 UI\QLDonHangD$14$1.class
@@ -65,8 +68,8 @@ UI\LoginD$4.class
 UI\LoginD.class
 UI\QuanLyKhoD$7.class
 UI\QLDonHangD$8.class
+UI\QuanLyKhoD$13.class
 UI\Main$3.class
-UI\QuanLyKhoD$10$1.class
 UI\QLDonHangD$4.class
 UI\NhanVienD$15.class
 Utils\MsgBox.class
@@ -81,8 +84,10 @@ UI\Main$8.class
 UI\CaLamD$7.class
 UI\QuanLyKhoD$5.class
 Entity\DonHangE.class
+UI\QuanLyKhoD$15$1.class
 UI\TaiChinhD$8$1.class
 UI\QLDonHangD$13.class
+UI\QuanLyKhoD$14.class
 UI\QuanLyKhoD$4.class
 DAO\MainDAO.class
 UI\CaLamD$6.class
@@ -98,6 +103,7 @@ UI\TaiChinhD$6.class
 UI\ChaoD$2.class
 UI\QuanLyKhoD$3.class
 UI\QLDonHangD$11.class
+UI\QuanLyKhoD$12.class
 UI\NhanVienD$7.class
 UI\Main$2.class
 UI\NhanVienD$4.class
@@ -111,6 +117,7 @@ UI\QLDonHangD$10.class
 UI\TaiChinhD$8.class
 UI\CaLamD$4.class
 UI\NhanVienD.class
+UI\QuanLyKhoD$11.class
 UI\NhanVienD$6.class
 UI\CaLamD$18$1.class
 UI\Main$4.class
