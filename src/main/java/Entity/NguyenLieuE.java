@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class NguyenLieuE {
-    private int MaNL;
+    private String MaNL; // Đổi từ int thành String
     private String TenNL;
-    private int SoLuongNhap;
+    private int SoLuongTon;
     private int SoLuongDaBan;
     private int SoLuongConLai;
     private String DonViTinh;
@@ -14,14 +14,16 @@ public class NguyenLieuE {
     private Date HanSuDung;
     private String NhaCungCap;
     private BigDecimal GiaNhap;
-
+    
+    // Constructor
+    
     public NguyenLieuE() {
     }
 
-    public NguyenLieuE(int MaNL, String TenNL, int SoLuongNhap, int SoLuongDaBan, int SoLuongConLai, String DonViTinh, Date NgayNhap, Date HanSuDung, String NhaCungCap, BigDecimal GiaNhap) {
+    public NguyenLieuE(String MaNL, String TenNL, int SoLuongTon, int SoLuongDaBan, int SoLuongConLai, String DonViTinh, Date NgayNhap, Date HanSuDung, String NhaCungCap, BigDecimal GiaNhap) {
         this.MaNL = MaNL;
         this.TenNL = TenNL;
-        this.SoLuongNhap = SoLuongNhap;
+        this.SoLuongTon = SoLuongTon;
         this.SoLuongDaBan = SoLuongDaBan;
         this.SoLuongConLai = SoLuongConLai;
         this.DonViTinh = DonViTinh;
@@ -31,78 +33,76 @@ public class NguyenLieuE {
         this.GiaNhap = GiaNhap;
     }
 
-    
-
-    public int getMaNL() {
+    public String getMaNL() {
         return MaNL;
     }
 
-    public void setMaNL(int maNL) {
-        MaNL = maNL;
+    public void setMaNL(String MaNL) {
+        this.MaNL = MaNL;
     }
 
     public String getTenNL() {
         return TenNL;
     }
 
-    public void setTenNL(String tenNL) {
-        TenNL = tenNL;
+    public void setTenNL(String TenNL) {
+        this.TenNL = TenNL;
     }
 
-    public int getSoLuongNhap() {
-        return SoLuongNhap;
+    public int getSoLuongTon() {
+        return SoLuongTon;
     }
 
-    public void setSoLuongNhap(int soLuongNhap) {
-        SoLuongNhap = soLuongNhap;
+    public void setSoLuongTon(int SoLuongTon) {
+        this.SoLuongTon = SoLuongTon;
     }
 
     public int getSoLuongDaBan() {
         return SoLuongDaBan;
     }
 
-    public void setSoLuongDaBan(int soLuongDaBan) {
-        SoLuongDaBan = soLuongDaBan;
+    public void setSoLuongDaBan(int SoLuongDaBan) {
+        this.SoLuongDaBan = SoLuongDaBan;
     }
 
     public int getSoLuongConLai() {
         return SoLuongConLai;
     }
 
-    public void setSoLuongConLai(int soLuongConLai) {
-        SoLuongConLai = soLuongConLai;
+    public void setSoLuongConLai(int SoLuongConLai) {
+        this.SoLuongConLai = SoLuongConLai;
     }
 
     public String getDonViTinh() {
         return DonViTinh;
     }
 
-    public void setDonViTinh(String donViTinh) {
-        DonViTinh = donViTinh;
+    public void setDonViTinh(String DonViTinh) {
+        this.DonViTinh = DonViTinh;
     }
 
     public Date getNgayNhap() {
         return NgayNhap;
     }
 
-    public void setNgayNhap(Date ngayNhap) {
-        NgayNhap = ngayNhap;
+    public void setNgayNhap(Date NgayNhap) {
+        this.NgayNhap = NgayNhap;
     }
 
     public Date getHanSuDung() {
         return HanSuDung;
     }
 
-    public void setHanSuDung(Date hanSuDung) {
-        HanSuDung = hanSuDung;
+    public void setHanSuDung(Date HanSuDung) {
+        this.HanSuDung = HanSuDung;
     }
 
     public String getNhaCungCap() {
         return NhaCungCap;
     }
 
-    public void setNhaCungCap(String nhaCungCap) {
-        NhaCungCap = nhaCungCap;
+    public void setNhaCungCap(String NhaCungCap) {
+        this.NhaCungCap = NhaCungCap;
     }
 
     public BigDecimal getGiaNhap() {
@@ -112,5 +112,10 @@ public class NguyenLieuE {
     public void setGiaNhap(BigDecimal GiaNhap) {
         this.GiaNhap = GiaNhap;
     }
+
+    public void setGiaNhap(Double giaNhap) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
+
 }

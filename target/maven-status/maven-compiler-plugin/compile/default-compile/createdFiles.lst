@@ -41,6 +41,7 @@ DAO\TaiChinhDAO.class
 DAO\DonHangDAO.class
 UI\QuanLyKhoD$6.class
 UI\NhanVienD$1.class
+UI\QuanLyKhoD$9.class
 UI\Main.class
 UI\CaLamD$17.class
 UI\NhanVienD$16.class
@@ -56,6 +57,7 @@ UI\CaLamD$18.class
 UI\TaiChinhD$1.class
 UI\LoginD$4$1.class
 UI\QLDonHangD$9.class
+UI\QuanLyKhoD$8.class
 UI\Main$10.class
 UI\Main$9.class
 UI\TaiChinhD$2.class
@@ -64,6 +66,7 @@ UI\LoginD.class
 UI\QuanLyKhoD$7.class
 UI\QLDonHangD$8.class
 UI\Main$3.class
+UI\QuanLyKhoD$10$1.class
 UI\QLDonHangD$4.class
 UI\NhanVienD$15.class
 Utils\MsgBox.class
@@ -78,7 +81,6 @@ UI\Main$8.class
 UI\CaLamD$7.class
 UI\QuanLyKhoD$5.class
 Entity\DonHangE.class
-UI\QuanLyKhoD$7$1.class
 UI\TaiChinhD$8$1.class
 UI\QLDonHangD$13.class
 UI\QuanLyKhoD$4.class
@@ -119,3 +121,4 @@ UI\NhanVienD$11.class
 UI\QLDonHangD$2.class
 DAO\ChiTietDonHangDAO.class
 UI\NhanVienD$5.class
+UI\QuanLyKhoD$10.class

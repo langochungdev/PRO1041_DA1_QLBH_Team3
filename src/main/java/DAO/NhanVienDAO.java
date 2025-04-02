@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NhanVienDAO extends MainDAO<NhanVienE, String> {
 
-    String INSERT_SQL = "INSERT INTO NhanVien (MaNV, MatKhau, Email, VaiTro, HoTen) VALUES (?, ?, ?, ?, ?, ?)";
+    String INSERT_SQL = "INSERT INTO NhanVien (MaNV, MatKhau, Email, VaiTro, HoTen) VALUES (?, ?, ?, ?, ?)";
     String UPDATE_SQL = "UPDATE NhanVien SET MatKhau=?, HoTen=?, VaiTro=?, Email=? WHERE MaNV=?";
     String DELETE_SQL = "DELETE FROM NhanVien WHERE MaNV=?";
     String SELECT_ALL_SQL = "SELECT * FROM NhanVien";

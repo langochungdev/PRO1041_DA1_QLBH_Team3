@@ -13,7 +13,7 @@ CREATE TABLE NhanVien (
 );
 
 CREATE TABLE CaLam (
-    MaCa INT IDENTITY(1,1) PRIMARY KEY,
+    MaCa NVARCHAR(50) PRIMARY KEY,
     MaNV NVARCHAR(50) NOT NULL,
     NgayLam DATE NOT NULL,
     CaLam NVARCHAR(10) CHECK (CaLam IN (N'Ca 1', N'Ca 2', N'Ca 3')) NOT NULL,
@@ -95,14 +95,14 @@ INSERT INTO NhanVien (MaNV, MatKhau, Email, HoTen, VaiTro) VALUES
     ('trung', '123', '', N'Trung', 1),
     ('hai', '123', '', N'Hải', 1);
 
-INSERT INTO CaLam (MaNV, NgayLam, CaLam) VALUES
-('hung', '2025-04-01', N'Ca 1'),
-('kha', '2025-04-01', N'Ca 2'),
-('trung', '2025-04-01', N'Ca 3'),
-('hai', '2025-04-02', N'Ca 1'),
-('hung', '2025-04-02', N'Ca 2'),
-('kha', '2025-04-02', N'Ca 3'),
-('trung', '2025-04-03', N'Ca 1');
+INSERT INTO CaLam (MaCa, MaNV, NgayLam, CaLam) VALUES
+('ca1', 'hung', '2025-04-01', N'Ca 1'),
+('ca2', 'kha', '2025-04-01', N'Ca 2'),
+('ca3', 'trung', '2025-04-01', N'Ca 3'),
+('ca4', 'hai', '2025-04-02', N'Ca 1'),
+('ca5', 'hung', '2025-04-02', N'Ca 2'),
+('ca6', 'kha', '2025-04-02', N'Ca 3'),
+('ca7', 'trung', '2025-04-03', N'Ca 1');
 
 INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SoDienThoai) VALUES
 ('NCC01', N'Công ty A', N'123 Đường A, TP.HCM', N'0909123456'),
@@ -152,6 +152,7 @@ INSERT INTO ChiTietHoaDon (MaHD, MaNL, SoLuong, GiaBan) VALUES
 -- CỤM 4 HÙNG 
 CREATE VIEW View_CongNo AS
 SELECT 
+	HD.MaHD,
     KH.MaKH, 
     KH.TenKH, 
     KH.SoDienThoai, 
