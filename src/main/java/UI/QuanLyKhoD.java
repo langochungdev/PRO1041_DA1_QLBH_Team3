@@ -5,6 +5,7 @@ import DAO.NguyenLieuDAO;
 import DAO.NhaCungCapDAO;
 import Entity.NguyenLieuE;
 import Entity.NhaCungCapE;
+import Utils.Auth;
 import Utils.MsgBox;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         loadAllData(); // Tải dữ liệu vào bảng khi form hiển thị
         loadTbNhaCungCap();
-
+        phanquyen();
         // Khai báo cho tìm kiếm theo chữ gõ
         txtTimKiem.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -58,6 +59,23 @@ public class QuanLyKhoD extends javax.swing.JDialog {
                 }
             }
         });
+    }
+    
+    void phanquyen(){
+        boolean isManager = Auth.isManager();
+        if (Auth.isManager()) { // Chỉ mở nếu là quản lý     
+    } else {
+        btnThem.setEnabled(false);
+        btnXoa.setEnabled(false);
+        btnSua.setEnabled(false);
+        
+        btnThemNCC.setEnabled(false);
+        btnSuaNCC.setEnabled(false);
+        btnXoaNCC.setEnabled(false);
+        }
+        
+
+
     }
 
     private void timKiemTheoTuKhoa() {
@@ -280,6 +298,7 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         }
     }
     
+    
     void moiNCC(){
         txtMaNCC.setText("");
         txtTenNCC.setText("");
@@ -431,6 +450,11 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         });
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -465,8 +489,6 @@ public class QuanLyKhoD extends javax.swing.JDialog {
                 txtSLNhapActionPerformed(evt);
             }
         });
-
-        txtDVT.setText("jTextField1");
 
         jLabel8.setText("Số lượng còn lại kho:");
 
@@ -739,19 +761,25 @@ public class QuanLyKhoD extends javax.swing.JDialog {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         timKiemTheoTuKhoa();
     }//GEN-LAST:event_txtTimKiemActionPerformed
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {
-        xoaNguyenLieu();
-    }
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         lamMoiForm();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        capNhatNguyenLieu();
+ 
+        if (Auth.isManager()) { // Chỉ mở nếu là quản lý  
+        } else {
+            
+            MsgBox.alert(this, "Bạn không có quyền truy cập");
+        } 
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        themNguyenLieu();
+    if (Auth.isManager()) { // Chỉ mở nếu là quản lý     
+    } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập");
+        }         
+    
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void txtMaNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNLActionPerformed
@@ -781,6 +809,11 @@ public class QuanLyKhoD extends javax.swing.JDialog {
     }//GEN-LAST:event_tbNhaCungCapMouseClicked
 
     private void btnSuaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNCCActionPerformed
+        if (Auth.isManager()) { // Chỉ mở nếu là quản lý  
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập");
+        } 
+        
         NhaCungCapE ncc = new NhaCungCapE();
         ncc.setMaNCC(txtMaNCC.getText());
         ncc.setTenNCC(txtTenNCC.getText());
@@ -791,7 +824,12 @@ public class QuanLyKhoD extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSuaNCCActionPerformed
 
     private void btnXoaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNCCActionPerformed
-        nccdao.delete(txtMaNCC.getText());
+    if (Auth.isManager()) { // Chỉ mở nếu là quản lý  
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập");
+        }   
+    
+    nccdao.delete(txtMaNCC.getText());
         moiNCC();
         loadTbNhaCungCap();
     }//GEN-LAST:event_btnXoaNCCActionPerformed
@@ -804,7 +842,19 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         ncc.setSDT(txtSDT.getText());
         nccdao.insert(ncc);
         loadTbNhaCungCap();
+        if (Auth.isManager()) { // Chỉ mở nếu là quản lý  
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập");
+        } 
     }//GEN-LAST:event_btnThemNCCActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+    if (Auth.isManager()) { // Chỉ mở nếu là quản lý  
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập");
+        } 
+    
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     public static void main(String args[]) {
 

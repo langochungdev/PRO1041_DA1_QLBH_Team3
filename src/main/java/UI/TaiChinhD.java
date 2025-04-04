@@ -14,6 +14,11 @@ public class TaiChinhD extends javax.swing.JDialog {
         fillTbDoanhThu();
         fillTbCongNo(null);
     }
+    
+    public void selectTab(int index) {
+        tabs.setSelectedIndex(index);
+    }
+    
     TaiChinhDAO tcdao = new TaiChinhDAO();
 
     void fillTbCongNo(String trangThai) {
@@ -27,7 +32,7 @@ public class TaiChinhD extends javax.swing.JDialog {
 
     private void searchCongNo(String keyword) {
         DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
-        model.setRowCount(0); // Xóa dữ liệu cũ
+        model.setRowCount(0); 
 
         List<Object[]> list = tcdao.searchCongNo(keyword); // Lấy danh sách kết quả tìm kiếm
         for (Object[] row : list) {
@@ -284,18 +289,27 @@ public class TaiChinhD extends javax.swing.JDialog {
     }//GEN-LAST:event_rdoChuaThanhToanActionPerformed
 
     private void tbCongNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCongNoMouseClicked
-        int rowIndex = tbCongNo.getSelectedRow(); // Lấy dòng đang chọn
+        int rowIndex = tbCongNo.getSelectedRow();
     if (rowIndex != -1) {
-        // Cột trạng thái thanh toán (giả sử nó ở cột thứ 5, bạn có thể thay đổi index nếu cần)
         String trangThai = tbCongNo.getValueAt(rowIndex, 6).toString().trim();  
 
-        // Kiểm tra giá trị trả về từ database
         if (trangThai.equalsIgnoreCase("Chưa thanh toán") || trangThai.isEmpty()) {
             rdoChuaThanhToan.setSelected(true);
         } else {
             rdoDaThanhToan.setSelected(true);
         }
     }
+    
+    if (evt.getClickCount() == 2) { 
+    String MaHD = tbCongNo.getValueAt(rowIndex, 0).toString().trim(); 
+    
+    QLDonHangD dh = new QLDonHangD(null, false);
+    dh.setVisible(true);
+    dh.selectTab(1);
+    dh.hienThiThongTinDonHang(MaHD);
+    dh.hienThiChiTietDonHang(MaHD);
+}
+
     }//GEN-LAST:event_tbCongNoMouseClicked
 
     public static void main(String args[]) {

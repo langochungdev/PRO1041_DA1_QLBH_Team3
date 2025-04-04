@@ -34,7 +34,7 @@ public class NhanVienD extends javax.swing.JDialog {
             for (NhanVienE nv : list) {
                 Object[] row = {
                     nv.getMaNV(),
-                    nv.getTenTK(),
+                    
                     "*".repeat(nv.getMatKhau().length()),
                     hideEmail(nv.getEmail()), // Gọi hàm ẩn email
                     nv.getHoTen(),
@@ -76,7 +76,7 @@ public class NhanVienD extends javax.swing.JDialog {
 
     void setForm(NhanVienE nv) {
         txtMa.setText(nv.getMaNV());
-        txtTaiKhoan.setText(nv.getTenTK());
+        
         txtMK.setText(nv.getMatKhau());
         txtEmail.setText(nv.getEmail());
         txtTen.setText(nv.getHoTen());
@@ -88,7 +88,7 @@ public class NhanVienD extends javax.swing.JDialog {
         NhanVienE nv = new NhanVienE();
 
         // Kiểm tra xem các ô nhập có rỗng không trước khi gán giá trị
-        if (txtTaiKhoan.getText().trim().isEmpty()
+        if (txtMa.getText().trim().isEmpty()
                 || txtMK.getPassword().length == 0
                 || txtEmail.getText().trim().isEmpty()
                 || txtTen.getText().trim().isEmpty()) {
@@ -98,7 +98,7 @@ public class NhanVienD extends javax.swing.JDialog {
         }
         
         nv.setMaNV(txtMa.getText());
-        nv.setTenTK(txtTaiKhoan.getText().trim());
+        
         nv.setMatKhau(new String(txtMK.getPassword()).trim());
         nv.setEmail(txtEmail.getText().trim());
         nv.setHoTen(txtTen.getText().trim());
@@ -196,7 +196,6 @@ public class NhanVienD extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         tabs = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
-        lblMatKhau6 = new javax.swing.JLabel();
         lblMatKhau7 = new javax.swing.JLabel();
         lblHoTen3 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -211,7 +210,6 @@ public class NhanVienD extends javax.swing.JDialog {
         btnLast = new javax.swing.JButton();
         txtMK = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        txtTaiKhoan = new javax.swing.JTextField();
         txtTen = new javax.swing.JTextField();
         rdoQuanLy = new javax.swing.JRadioButton();
         rdoNhanVien = new javax.swing.JRadioButton();
@@ -236,8 +234,6 @@ public class NhanVienD extends javax.swing.JDialog {
         jLabel1.setText("QUẢN LÝ NHÂN VIÊN QUẢN TRỊ");
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        lblMatKhau6.setText("Tên tài khoản");
 
         lblMatKhau7.setText("Mật khẩu");
 
@@ -315,12 +311,6 @@ public class NhanVienD extends javax.swing.JDialog {
 
         jLabel5.setText("Vai Trò");
 
-        txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTaiKhoanActionPerformed(evt);
-            }
-        });
-
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenActionPerformed(evt);
@@ -369,7 +359,6 @@ public class NhanVienD extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblMatKhau6)
                                 .addComponent(lblMatKhau7)
                                 .addComponent(lblVaiTro3)
                                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -397,15 +386,14 @@ public class NhanVienD extends javax.swing.JDialog {
                                     .addComponent(rdoNhanVien))
                                 .addComponent(lblMatKhau8)
                                 .addComponent(lblHoTen3))
-                            .addComponent(txtMK, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txttaikhoan))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMK2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtMa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMK, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -415,29 +403,25 @@ public class NhanVienD extends javax.swing.JDialog {
                 .addComponent(txttaikhoan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblMatKhau6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMatKhau7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblMatKhau8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMK2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblHoTen3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblVaiTro3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdoQuanLy)
                     .addComponent(rdoNhanVien))
@@ -460,13 +444,13 @@ public class NhanVienD extends javax.swing.JDialog {
 
         tbDanhSach.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "MÃ NV", "TÊN TÀI KHOẢN", "MẬT KHẨU", "EMAIL", "HỌ TÊN", "VAI TRÒ"
+                "MÃ NV", "MẬT KHẨU", "EMAIL", "HỌ TÊN", "VAI TRÒ"
             }
         ));
         tbDanhSach.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -597,10 +581,6 @@ public class NhanVienD extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenActionPerformed
 
-    private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTaiKhoanActionPerformed
-
     private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaActionPerformed
@@ -636,7 +616,6 @@ public class NhanVienD extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblHoTen3;
-    private javax.swing.JLabel lblMatKhau6;
     private javax.swing.JLabel lblMatKhau7;
     private javax.swing.JLabel lblMatKhau8;
     private javax.swing.JLabel lblVaiTro3;
@@ -649,7 +628,6 @@ public class NhanVienD extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtMK1;
     private javax.swing.JPasswordField txtMK2;
     private javax.swing.JTextField txtMa;
-    private javax.swing.JTextField txtTaiKhoan;
     private javax.swing.JTextField txtTen;
     private javax.swing.JLabel txttaikhoan;
     // End of variables declaration//GEN-END:variables

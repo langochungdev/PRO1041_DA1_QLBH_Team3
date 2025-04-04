@@ -89,34 +89,30 @@ public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Intege
     }
 
 
-    public List<NguyenLieuE> selectByKeyword(String keyword) {
-        List<NguyenLieuE> list = new ArrayList<>();
-        String sql = "SELECT * FROM View_NguyenLieu WHERE TenNL LIKE ?";
-
-        System.out.println("Truy vấn SQL: " + sql + " với giá trị: %" + keyword + "%"); // Debug
-
-        try (ResultSet rs = JdbcHelper.execQuery(sql, "%" + keyword + "%")) {
-            while (rs.next()) {
-                NguyenLieuE nl = new NguyenLieuE(
-                        rs.getString("MaNL"),
-                        rs.getString("TenNL"),
-                        rs.getInt("SoLuongNhap"),
-                        rs.getInt("SoLuongDaBan"),
-                        rs.getInt("SoLuongConLai"),
-                        rs.getString("DonViTinh"),
-                        rs.getDate("NgayNhap"),
-                        rs.getDate("HanSuDung"),
-                        rs.getString("NhaCungCap"),
-                        rs.getBigDecimal("GiaNhap")  // Thêm giá nhập
-                );
-                list.add(nl);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+     public List<NguyenLieuE> selectByKeyword(String keyword) {
+    List<NguyenLieuE> list = new ArrayList<>();
+    String sql = "SELECT * FROM View_NguyenLieu WHERE TenNL LIKE ? OR MaNL LIKE ?";
+    try (ResultSet rs = JdbcHelper.execQuery(sql, "%" + keyword + "%", "%" + keyword + "%")) {
+        while (rs.next()) {
+            NguyenLieuE nl = new NguyenLieuE(
+                    rs.getString("MaNL"),
+                    rs.getString("TenNL"),
+                    rs.getInt("SoLuongNhap"),
+                    rs.getInt("SoLuongDaBan"),
+                    rs.getInt("SoLuongConLai"),
+                    rs.getString("DonViTinh"),
+                    rs.getDate("NgayNhap"),
+                    rs.getDate("HanSuDung"),
+                    rs.getString("NhaCungCap"),
+                    rs.getBigDecimal("GiaNhap")
+            );
+            list.add(nl);
         }
-        return list;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-
+    return list;
+}
     
     public NguyenLieuE getById(String maNL) {
         return this.selectById(maNL);

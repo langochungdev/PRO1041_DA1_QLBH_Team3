@@ -98,7 +98,6 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblMatKhau6" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblMatKhau7" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblVaiTro3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
@@ -129,8 +128,6 @@
                                       <Component id="lblMatKhau8" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblHoTen3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txtMK" alignment="0" min="-2" pref="560" max="-2" attributes="0"/>
-                                  <Component id="txtTaiKhoan" alignment="0" min="-2" pref="560" max="-2" attributes="0"/>
                                   <Component id="txttaikhoan" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -140,6 +137,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtMK2" alignment="1" min="-2" pref="560" max="-2" attributes="0"/>
                                   <Component id="txtMa" alignment="1" min="-2" pref="560" max="-2" attributes="0"/>
+                                  <Component id="txtMK" alignment="1" min="-2" pref="560" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -154,29 +152,25 @@
                       <Component id="txttaikhoan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtMa" min="-2" pref="22" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblMatKhau6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtTaiKhoan" min="-2" pref="22" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblMatKhau7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtMK" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblMatKhau8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtMK2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblHoTen3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblVaiTro3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtTen" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="rdoQuanLy" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="rdoNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -198,11 +192,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblMatKhau6">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xea;n t&#xe0;i kho&#x1ea3;n"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="lblMatKhau7">
               <Properties>
                 <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u"/>
@@ -296,11 +285,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vai Tr&#xf2;"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtTaiKhoan">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTaiKhoanActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTen">
               <Events>
@@ -398,9 +382,8 @@
                 <Component class="javax.swing.JTable" name="tbDanhSach">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
+                      <Table columnCount="5" rowCount="4">
                         <Column editable="true" title="M&#xc3; NV" type="java.lang.Object"/>
-                        <Column editable="true" title="T&#xca;N T&#xc0;I KHO&#x1ea2;N" type="java.lang.Object"/>
                         <Column editable="true" title="M&#x1eac;T KH&#x1ea8;U" type="java.lang.Object"/>
                         <Column editable="true" title="EMAIL" type="java.lang.Object"/>
                         <Column editable="true" title="H&#x1ecc; T&#xca;N" type="java.lang.Object"/>

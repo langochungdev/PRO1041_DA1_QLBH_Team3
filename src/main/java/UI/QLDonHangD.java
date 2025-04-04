@@ -6,6 +6,8 @@ import DAO.DonHangDAO;
 import DAO.KhachHangDAO;
 import Entity.ChiTietDonHangE;
 import Entity.DonHangE;
+import Utils.Auth;
+import Utils.MsgBox;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,7 +25,7 @@ public class QLDonHangD extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         loadAllData(); // Tải dữ liệu vào bảng khi form hiển thị
         loadSanPhamToComboBox();
-        
+        phanquyen();
         // Khai báo cho tìm kiếm theo chữ gõ 
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
         @Override
@@ -57,9 +59,21 @@ public class QLDonHangD extends javax.swing.JDialog {
         }
     }
 });
-
-        
-            }
+    }
+    
+    
+    public void selectTab(int index) {
+        tabs.setSelectedIndex(index);
+    }
+    void phanquyen(){
+        boolean isManager = Auth.isManager();
+        if( !Auth.isLogin()){
+            MsgBox.alert(this, "Vui lòng đăng nhập hệ thống để sử dụng!");
+        } else if (!Auth.isManager()){
+            btnXoa.setEnabled(false);
+            btnCapNhat.setEnabled(false);
+        }  
+    }
     
     private DonHangDAO donHangDAO = new DonHangDAO();
     private static final String ALL_STATUS = "Tất cả";
@@ -116,7 +130,7 @@ public class QLDonHangD extends javax.swing.JDialog {
 
     
     //----------------- ChiTietDonHang ở đây-------------------------------------
-    private void hienThiThongTinDonHang(String maHD){
+    public void hienThiThongTinDonHang(String maHD){
         DonHangDAO dao = new DonHangDAO();
         DonHangE dh = dao.getDonHangById(maHD);
         
@@ -133,7 +147,7 @@ public class QLDonHangD extends javax.swing.JDialog {
     }
     
     
-    private void hienThiChiTietDonHang(String maHD) {
+    public void hienThiChiTietDonHang(String maHD) {
     ChiTietDonHangDAO dao = new ChiTietDonHangDAO();
     List<ChiTietDonHangE> list = dao.getByMaHD(maHD);
 

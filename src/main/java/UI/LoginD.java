@@ -27,7 +27,7 @@ public class LoginD extends javax.swing.JDialog {
         String pw = new String(txtMK.getPassword());
         NhanVienE nv = dao.selectById(tenTK);
 
-        if (nv == null) {
+        if (nv == null || !nv.getMaNV().equals(tenTK)){ 
             MsgBox.alert(this, "Sai đăng nhập");
         } else {
             if (!nv.getMatKhau().equals(pw)) {
@@ -148,8 +148,6 @@ public class LoginD extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Tên đăng nhập:");
         jPanel7.add(jLabel4, java.awt.BorderLayout.CENTER);
-
-        txtTK.setText("hung");
         jPanel7.add(txtTK, java.awt.BorderLayout.PAGE_END);
 
         jPanel5.add(jPanel7);

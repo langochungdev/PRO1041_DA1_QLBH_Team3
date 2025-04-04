@@ -9,7 +9,8 @@ CREATE TABLE NhanVien (
     MatKhau NVARCHAR(255) NOT NULL,
     Email NVARCHAR(100) NULL,
     HoTen NVARCHAR(50) NOT NULL,
-    VaiTro BIT NOT NULL
+    VaiTro BIT NOT NULL,
+	LinkAnh NVARCHAR(255) NULL
 );
 
 CREATE TABLE CaLam (
@@ -89,11 +90,11 @@ END;
 
 
 -- CỤM 3 
-INSERT INTO NhanVien (MaNV, MatKhau, Email, HoTen, VaiTro) VALUES 
-    ('hung', '123', '', N'Hùng', 1),
-    ('kha', '123', '', N'Kha', 1),
-    ('trung', '123', '', N'Trung', 1),
-    ('hai', '123', '', N'Hải', 1);
+INSERT INTO NhanVien (MaNV, MatKhau, Email, HoTen, VaiTro, LinkAnh) VALUES 
+    ('hung', '123', 'langochungse23@gmail.com', N'Hùng', 1, ''),
+    ('kha', '123', '', N'Kha', 1, ''),
+    ('trung', '123', '', N'Trung', 1, ''),
+    ('hai', '123', '', N'Hải', 1, '');
 
 INSERT INTO CaLam (MaCa, MaNV, NgayLam, CaLam) VALUES
 ('c1', 'hung', '2025-04-01', N'Ca 1'),
