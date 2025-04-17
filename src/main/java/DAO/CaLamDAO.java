@@ -2,97 +2,107 @@
 package DAO;
 
 import Entity.CaLamE;
-import Entity.NhanVienE;
 import Utils.JdbcHelper;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
-public class CaLamDAO extends MainDAO<CaLamE, String>{
+public class CaLamDAO extends MainDAO<CaLamE, String> {
 
-    String INSERT_SQL = "INSERT INTO CaLam (MaNV, TenNV, NgayLam, CaLam) VALUES (?, ?, ?, ?)";
-    String UPDATE_SQL = "UPDATE CaLam SET TenNV=?, NgayLam=?, CaLam=? WHERE MaNV=? AND NgayLam=?";
-    String DELETE_SQL = "DELETE FROM CaLam WHERE MaNV=? AND NgayLam=? AND CaLam=?";
-    String SELECT_ALL_SQL = "SELECT * FROM CaLam";
-    String SELECT_BY_TenNV_SQL = "SELECT * FROM CaLam WHERE TenNhanVien=?";
+    final String INSERT_SQL = "INSERT INTO CaLam (MaCa, MaNV, NgayLam, CaLam) VALUES (?, ?, ?, ?)";
+    final String UPDATE_SQL = "UPDATE CaLam SET MaNV = ?, TenNV = ?, NgayLam = ?, CaLam = ? WHERE MaCa = ?";
+    final String DELETE_SQL = "DELETE FROM CaLam WHERE MaCa = ?";
+    final String SELECT_ALL_SQL = "SELECT * FROM v_CaLam";
+    final String SELECT_BY_ID_SQL = "SELECT * FROM v_CaLam WHERE MaCa = ?";
+    final String SELECT_BY_MANV_SQL = "SELECT * FROM v_CaLam WHERE MaNV = ?";
+    final String SELECT_BY_DATE_SQL = "SELECT * FROM v_CaLam WHERE NgayLam = ?";
+    final String SELECT_BY_DATE_MANV_SQL = "SELECT * FROM v_CaLam WHERE NgayLam = ? AND MaNV = ?";
 
     public void insert(CaLamE e) {
         JdbcHelper.execUpdate(INSERT_SQL,
+                e.getMaCa(),
                 e.getMaNV(),
-                e.getTenNV(),
-                e.getNgayLam(),
+                java.sql.Date.valueOf(e.getNgayLam()), // Đúng cách chuyển từ LocalDate sang SQL Date
                 e.getCaLam()
         );
     }
 
     public void update(CaLamE e) {
         JdbcHelper.execUpdate(UPDATE_SQL,
+                e.getMaNV(),
                 e.getTenNV(),
-                e.getNgayLam(),
+                java.sql.Date.valueOf(e.getNgayLam()),
                 e.getCaLam(),
-                e.getMaNV()
+                e.getMaCa()
         );
     }
-    
-    
-    public void delete(int maNV, Date ngayLam) {
-        try {
-            JdbcHelper.execUpdate(DELETE_SQL, maNV, new java.sql.Date(ngayLam.getTime()));
-            System.out.println("Xóa thành công!");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Xóa thất bại!");
-        }
 
+    @Override
+    public void delete(String maCa) {
+        JdbcHelper.execUpdate(DELETE_SQL, maCa);
     }
 
+    @Override
     public List<CaLamE> selectAll() {
         return selectBySql(SELECT_ALL_SQL);
     }
 
-    public CaLamE selectByTenTK(String tenNV) {
-        List<CaLamE> ds = selectBySql(SELECT_BY_TenNV_SQL, tenNV);
-        if (ds.isEmpty()) {
-            return null;
-        }
-        return ds.get(0);
+    @Override
+    public CaLamE selectById(String maCa) {
+        List<CaLamE> list = selectBySql(SELECT_BY_ID_SQL, maCa);
+        return list.isEmpty() ? null : list.get(0);
     }
 
-    public List<CaLamE> selectBySql(String sql, Object... args) {
-        List<CaLamE> ds = new ArrayList<>();
-        ResultSet rs = JdbcHelper.execQuery(sql, args);
-        try {
-            while (rs.next()) {
-                CaLamE e = new CaLamE();
-                e.setMaNV(rs.getString("MaNV"));
-                e.setTenNV(rs.getString("TenNV"));
-                Date sqlDate = rs.getDate("NgayLam");
-                e.setCaLam(rs.getInt("CaLam"));
-                ds.add(e);
+    public List<CaLamE> selectByMaNV(String maNV) {
+        return selectBySql(SELECT_BY_MANV_SQL, maNV);
+    }
+
+    public List<CaLamE> selectByNgay(Date ngay) {
+        return selectBySql(SELECT_BY_DATE_SQL, ngay);
+    }
+
+    public List<CaLamE> selectByNgayVaMaNV(Date ngay, String maNV) {
+        return selectBySql(SELECT_BY_DATE_MANV_SQL, ngay, maNV);
+    }
+
+// Kiểm tra đã đăng ký bất kỳ ca nào trong ngày chưa
+    public boolean kiemTraDaDangKyNgay(String maNV, LocalDate ngayLam) {
+        String sql = "SELECT COUNT(*) FROM CaLam WHERE MaNV = ? AND NgayLam = ?";
+        try (ResultSet rs = JdbcHelper.execQuery(sql, maNV, java.sql.Date.valueOf(ngayLam))) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
         }
-        return ds;
+        return false;
+    }
+
+    public void xoaTatCaCaLam() {
+        String sql = "DELETE FROM CaLam"; // Xóa tất cả các bản ghi trong bảng CaLam
+        JdbcHelper.execUpdate(sql); // Thực thi câu lệnh SQL
     }
 
     @Override
-    public void delete(String e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<CaLamE> selectBySql(String sql, Object... args) {
+        List<CaLamE> list = new ArrayList<>();
+        try (ResultSet rs = JdbcHelper.execQuery(sql, args)) {
+            while (rs.next()) {
+                CaLamE e = new CaLamE();
+                e.setMaCa(rs.getString("MaCa"));
+                e.setMaNV(rs.getString("MaNV"));
+                e.setTenNV(rs.getString("TenNhanVien"));
+                e.setNgayLam(rs.getDate("NgayLam").toLocalDate());
+                e.setCaLam(rs.getString("CaLam"));
+                list.add(e);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("Lỗi truy vấn dữ liệu CaLam: " + ex.getMessage(), ex);
+        }
+        return list;
     }
-
-    @Override
-    public CaLamE selectById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

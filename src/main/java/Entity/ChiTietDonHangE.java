@@ -5,26 +5,41 @@ import java.math.BigDecimal;
 
 
 public class ChiTietDonHangE {
+    private String maHD;
+    private String maNL;
     private String tenSanPham;
-    private String donViTinh;
     private int soLuong;
-    private BigDecimal giaBan; // Kiểu Decimal
-
+    private String donViTinh;
+    private BigDecimal giaXuat;
+    private BigDecimal thanhTien;
     public ChiTietDonHangE() {
     }
 
-
-    public ChiTietDonHangE(String tenSanPham, String donViTinh, int soLuong, BigDecimal giaBan) {
-        
+    public ChiTietDonHangE(String maHD, String maNL, String tenSanPham, int soLuong, String donViTinh, BigDecimal giaXuat, BigDecimal thanhTien) {
+        this.maHD = maHD;
+        this.maNL = maNL;
         this.tenSanPham = tenSanPham;
-        this.donViTinh = donViTinh;
         this.soLuong = soLuong;
-        this.giaBan = giaBan;
+        this.donViTinh = donViTinh;
+        this.giaXuat = giaXuat;
+        this.thanhTien = thanhTien;
     }
 
-    
+    public String getMaHD() {
+        return maHD;
+    }
 
-    
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
+    }
+
+    public String getMaNL() {
+        return maNL;
+    }
+
+    public void setMaNL(String maNL) {
+        this.maNL = maNL;
+    }
 
     public String getTenSanPham() {
         return tenSanPham;
@@ -32,14 +47,6 @@ public class ChiTietDonHangE {
 
     public void setTenSanPham(String tenSanPham) {
         this.tenSanPham = tenSanPham;
-    }
-
-    public String getDonViTinh() {
-        return donViTinh;
-    }
-
-    public void setDonViTinh(String donViTinh) {
-        this.donViTinh = donViTinh;
     }
 
     public int getSoLuong() {
@@ -50,13 +57,30 @@ public class ChiTietDonHangE {
         this.soLuong = soLuong;
     }
 
-    public BigDecimal getGiaBan() {
-        return giaBan;
+    public String getDonViTinh() {
+        return donViTinh;
     }
 
-    public void setGiaBan(BigDecimal giaBan) {
-        this.giaBan = giaBan;
+    public void setDonViTinh(String donViTinh) {
+        this.donViTinh = donViTinh;
     }
 
+    public BigDecimal getGiaXuat() {
+        return giaXuat;
+    }
+
+    public void setGiaXuat(BigDecimal giaXuat) {
+        this.giaXuat = giaXuat;
+    }
+
+    public BigDecimal getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(BigDecimal thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
+    
     
 }

@@ -5,15 +5,18 @@ import java.time.LocalDate;
 
 public class CaLamE {
     private String maNV;
+    private String maCa;
     private String tenNV;
     private LocalDate ngayLam;
-    private int caLam; // Chỉ nhận giá trị 1, 2, 3
+    private String caLam; // Chỉ nhận giá trị 1, 2, 3
 
-    public CaLamE() {
+    public CaLamE(){
+        
     }
 
-    public CaLamE(String maNV, String tenNV, LocalDate ngayLam, int caLam) {
+    public CaLamE(String maNV, String maCa, String tenNV, LocalDate ngayLam, String caLam) {
         this.maNV = maNV;
+        this.maCa = maCa;
         this.tenNV = tenNV;
         this.ngayLam = ngayLam;
         this.caLam = caLam;
@@ -25,6 +28,14 @@ public class CaLamE {
 
     public void setMaNV(String maNV) {
         this.maNV = maNV;
+    }
+
+    public String getMaCa() {
+        return maCa;
+    }
+
+    public void setMaCa(String maCa) {
+        this.maCa = maCa;
     }
 
     public String getTenNV() {
@@ -43,16 +54,16 @@ public class CaLamE {
         this.ngayLam = ngayLam;
     }
 
-    public int getCaLam() {
+    public String getCaLam() {
         return caLam;
     }
 
-    public void setCaLam(int caLam) {
-        if (caLam >= 1 && caLam <= 3) {
-            this.caLam = caLam;
-        } else {
-            throw new IllegalArgumentException("Ca làm phải là 1, 2 hoặc 3.");
-        }
+    public void setCaLam(String caLam) {
+        this.caLam = caLam;
     }
+    
+    
+
+    
 }
 

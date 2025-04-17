@@ -92,7 +92,6 @@ public class LoginD extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtMK = new javax.swing.JPasswordField();
         jPanel8 = new javax.swing.JPanel();
-        jCheckBox2 = new javax.swing.JCheckBox();
         lbQuanMatKhau = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         btnDangNhap = new javax.swing.JButton();
@@ -148,6 +147,8 @@ public class LoginD extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Tên đăng nhập:");
         jPanel7.add(jLabel4, java.awt.BorderLayout.CENTER);
+
+        txtTK.setText("hung");
         jPanel7.add(txtTK, java.awt.BorderLayout.PAGE_END);
 
         jPanel5.add(jPanel7);
@@ -166,10 +167,6 @@ public class LoginD extends javax.swing.JDialog {
 
         jPanel8.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel8.setLayout(new java.awt.BorderLayout());
-
-        jCheckBox2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jCheckBox2.setText("Ghi nhớ mật khẩu");
-        jPanel8.add(jCheckBox2, java.awt.BorderLayout.CENTER);
 
         lbQuanMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbQuanMatKhau.setForeground(new java.awt.Color(255, 153, 153));
@@ -324,7 +321,6 @@ public class LoginD extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JButton btnThoat;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

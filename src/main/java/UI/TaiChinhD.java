@@ -1,10 +1,15 @@
+//La Ngoc Hung
 package UI;
 
 import DAO.TaiChinhDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TaiChinhD extends javax.swing.JDialog {
+
+    TaiChinhDAO tcdao = new TaiChinhDAO();
+    
 
     public TaiChinhD(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -14,12 +19,10 @@ public class TaiChinhD extends javax.swing.JDialog {
         fillTbDoanhThu();
         fillTbCongNo(null);
     }
-    
+
     public void selectTab(int index) {
         tabs.setSelectedIndex(index);
     }
-    
-    TaiChinhDAO tcdao = new TaiChinhDAO();
 
     void fillTbCongNo(String trangThai) {
         DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
@@ -29,17 +32,7 @@ public class TaiChinhD extends javax.swing.JDialog {
             model.addRow(row);
         }
     }
-
-    private void searchCongNo(String keyword) {
-        DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
-        model.setRowCount(0); 
-
-        List<Object[]> list = tcdao.searchCongNo(keyword); // Lấy danh sách kết quả tìm kiếm
-        for (Object[] row : list) {
-            model.addRow(row);
-        }
-    }
-
+    
     void fillTbDoanhThu() {
         DefaultTableModel model = (DefaultTableModel) tbDoanhThu.getModel();
         model.setRowCount(0);
@@ -49,6 +42,45 @@ public class TaiChinhD extends javax.swing.JDialog {
         }
     }
 
+    private void searchCongNo(String keyword) {
+        DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
+        model.setRowCount(0);
+
+        List<Object[]> list = tcdao.searchCongNo(keyword);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+    }
+    
+    void setRdoTrangThai(int rowIndex){
+        String trangThai = tbCongNo.getValueAt(rowIndex, 6).toString().trim();
+            if (trangThai.equalsIgnoreCase("Chưa thanh toán") || trangThai.isEmpty()) {
+                rdoChuaThanhToan.setSelected(true);
+            } else {
+                rdoDaThanhToan.setSelected(true);
+            }
+    }
+
+    void capNhatTrangThaiThanhToan() {
+        String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
+        int rowIndex = tbCongNo.getSelectedRow();
+        int confirm = JOptionPane.showConfirmDialog(null,
+                "Bạn có chắc muốn cập nhật trạng thái thanh toán không?",
+                "Xác nhận",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.CANCEL_OPTION) {
+            setRdoTrangThai(rowIndex);
+            return;
+        }
+        if (rowIndex != -1) {
+            String maHD = tbCongNo.getValueAt(rowIndex, 0).toString();
+            tcdao.capNhatTrangThaiThanhToan(maHD, rdoDaThanhToan.isSelected() ? true : false);
+            fillTbCongNo(selectedItem);
+            fillTbDoanhThu();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,7 +119,7 @@ public class TaiChinhD extends javax.swing.JDialog {
 
             },
             new String [] {
-                "MaHD", "Mã KH", "Tên KH", "SDT", "Số tiền", "Ngày nợ", "Ngày thanh toán"
+                "MaHD", "Mã KH", "Tên KH", "SDT", "Số tiền", "Ngày đặt", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -191,11 +223,11 @@ public class TaiChinhD extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Tháng", "Tổng nhập", "Tổng xuất", "SP bán chạy", "SP bán chậm", "Tổng doanh thu"
+                "Tháng", "Dư nợ", "Tổng nhập", "Tổng xuất", "Tổng doanh thu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -257,59 +289,38 @@ public class TaiChinhD extends javax.swing.JDialog {
     private void cbbSortTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortTrangThaiActionPerformed
         String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
 
-        // Gọi phương thức trong DAO để lấy danh sách công nợ
         List<Object[]> dsCongNo = tcdao.getCongNo(selectedItem);
 
-        // Cập nhật dữ liệu lên giao diện (giả sử bạn có một JTable)
         DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
-        model.setRowCount(0);  // Xóa dữ liệu cũ
+        model.setRowCount(0);
         for (Object[] row : dsCongNo) {
-            model.addRow(row);  // Thêm dữ liệu mới vào bảng
+            model.addRow(row);
         }
     }//GEN-LAST:event_cbbSortTrangThaiActionPerformed
 
     private void rdoDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaThanhToanActionPerformed
-        String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
-        int rowIndex = tbCongNo.getSelectedRow();  // Giả sử tbCongNo là tên bảng JTable
-        if (rowIndex != -1) {
-            String maHD = tbCongNo.getValueAt(rowIndex, 0).toString();  // Cột đầu tiên chứa MaHD
-            tcdao.capNhatTrangThaiThanhToan(maHD, true);  // Gọi phương thức cập nhật trạng thái đã thanh toán
-        fillTbCongNo(selectedItem);
-        }
+        capNhatTrangThaiThanhToan();
     }//GEN-LAST:event_rdoDaThanhToanActionPerformed
 
     private void rdoChuaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoChuaThanhToanActionPerformed
-        String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
-        int rowIndex = tbCongNo.getSelectedRow();  // Giả sử tbCongNo là tên bảng JTable
-        if (rowIndex != -1) {
-            String maHD = tbCongNo.getValueAt(rowIndex, 0).toString();  // Cột đầu tiên chứa MaHD
-            tcdao.capNhatTrangThaiThanhToan(maHD, false);  // Gọi phương thức cập nhật trạng thái chưa thanh toán
-        fillTbCongNo(selectedItem);
-        }
+        capNhatTrangThaiThanhToan();
     }//GEN-LAST:event_rdoChuaThanhToanActionPerformed
 
     private void tbCongNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCongNoMouseClicked
         int rowIndex = tbCongNo.getSelectedRow();
-    if (rowIndex != -1) {
-        String trangThai = tbCongNo.getValueAt(rowIndex, 6).toString().trim();  
-
-        if (trangThai.equalsIgnoreCase("Chưa thanh toán") || trangThai.isEmpty()) {
-            rdoChuaThanhToan.setSelected(true);
-        } else {
-            rdoDaThanhToan.setSelected(true);
+        if (rowIndex != -1) {
+            setRdoTrangThai(rowIndex);
         }
-    }
-    
-    if (evt.getClickCount() == 2) { 
-    String MaHD = tbCongNo.getValueAt(rowIndex, 0).toString().trim(); 
-    
-    QLDonHangD dh = new QLDonHangD(null, false);
-    dh.setVisible(true);
-    dh.selectTab(1);
-    dh.hienThiThongTinDonHang(MaHD);
-    dh.hienThiChiTietDonHang(MaHD);
-}
 
+        if (evt.getClickCount() == 2) {
+            String MaHD = tbCongNo.getValueAt(rowIndex, 0).toString().trim();
+
+            QLDonHangD dh = new QLDonHangD(null, false);
+            dh.setVisible(true);
+            dh.selectTab(1);
+            dh.fillChiTietHoaDon(MaHD);
+//            dh.hienThiChiTietDonHang(MaHD);
+        }
     }//GEN-LAST:event_tbCongNoMouseClicked
 
     public static void main(String args[]) {

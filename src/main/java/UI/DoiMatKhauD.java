@@ -20,7 +20,7 @@ public class DoiMatKhauD extends javax.swing.JDialog {
         String mk = new String(txtMatKhau.getPassword());
         String mkMoi1 = new String(txtMatKhau1.getPassword());
         String mkMoi2 = new String(txtMatKhau2.getPassword());
-        if (!TenTK.equalsIgnoreCase(Auth.user.getTenTK())){
+        if (!TenTK.equalsIgnoreCase(Auth.user.getMaNV())){
             MsgBox.alert(this, "Sai tên đăng nhập");
         } else if (!mk.equals(Auth.user.getMatKhau())) {
             MsgBox.alert(this, "Sai mật khẩu");

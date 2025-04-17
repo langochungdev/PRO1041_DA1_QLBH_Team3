@@ -71,4 +71,18 @@ public class NhaCungCapDAO extends MainDAO<NhaCungCapE, String> {
         };
         return ds;
     }
+    
+    public boolean isNCCInUse(String maNCC) {
+    String sql = "SELECT COUNT(*) FROM NguyenLieu WHERE MaNCC = ?";
+    try {
+        ResultSet rs = JdbcHelper.execQuery(sql, maNCC);
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
 }

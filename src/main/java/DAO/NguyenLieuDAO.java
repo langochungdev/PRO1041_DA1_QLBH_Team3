@@ -8,11 +8,11 @@ import java.util.List;
 
 public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Integer thành String
 
-    String INSERT_SQL = "INSERT INTO NguyenLieu (MaNL, TenNL, SoLuongNhap, SoLuongDaBan, SoLuongConLai, DonViTinh, NgayNhap, HanSuDung, NhaCungCap, GiaNhap) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    String UPDATE_SQL = "UPDATE NguyenLieu SET TenNL=?, SoLuongNhap=?, SoLuongDaBan=?, SoLuongConLai=?, DonViTinh=?, NgayNhap=?, HanSuDung=?, NhaCungCap=?, GiaNhap=? WHERE MaNL=?";
+    String INSERT_SQL = "INSERT INTO NguyenLieu (MaNL, TenNL, SoLuongTon, DonViTinh, NgayNhap, HanSuDung, MaNCC, GiaNhap, GiaXuat) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    String UPDATE_SQL = "UPDATE NguyenLieu SET TenNL=?, MaNCC=?, NgayNhap=?, HanSuDung=?, SoLuongTon=?, DonViTinh=?, GiaNhap=?, GiaXuat=? WHERE MaNL=?";
     String DELETE_SQL = "DELETE FROM NguyenLieu WHERE MaNL=?";
-    String SELECT_ALL_SQL = "SELECT * FROM View_NguyenLieu";
-    String SELECT_BY_ID_SQL = "SELECT * FROM View_NguyenLieu WHERE MaNL=?";
+    String SELECT_ALL_SQL = "SELECT * FROM NguyenLieu";
+    String SELECT_BY_ID_SQL = "SELECT * FROM NguyenLieu WHERE MaNL=?";
 
     @Override
     public void insert(NguyenLieuE e) {
@@ -20,13 +20,12 @@ public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Intege
                 e.getMaNL(),
                 e.getTenNL(),
                 e.getSoLuongTon(),
-                e.getSoLuongDaBan(),
-                e.getSoLuongConLai(),
                 e.getDonViTinh(),
                 e.getNgayNhap(),
                 e.getHanSuDung(),
-                e.getNhaCungCap(),
-                e.getGiaNhap()
+                e.getMaNCC(),
+                e.getGiaNhap(),
+                e.getGiaXuat()
         );
     }
 
@@ -34,14 +33,13 @@ public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Intege
     public void update(NguyenLieuE e) {
         JdbcHelper.execUpdate(UPDATE_SQL,
                 e.getTenNL(),
-                e.getSoLuongTon(),
-                e.getSoLuongDaBan(),
-                e.getSoLuongConLai(),
-                e.getDonViTinh(),
+                e.getMaNCC(),
                 e.getNgayNhap(),
                 e.getHanSuDung(),
-                e.getNhaCungCap(),
-                e.getGiaNhap(),  // GiaNhap đứng trước MaNL
+                e.getSoLuongTon(),
+                e.getDonViTinh(),
+                e.getGiaNhap(),  
+                e.getGiaXuat(),
                 e.getMaNL()      // MaNL để cuối cùng
         );
     }
@@ -64,55 +62,53 @@ public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Intege
 
 
     @Override
-    public List<NguyenLieuE> selectBySql(String sql, Object... args) {
-        List<NguyenLieuE> list = new ArrayList<>();
-        try (ResultSet rs = JdbcHelper.execQuery(sql, args)) {
-            while (rs.next()) {
-                NguyenLieuE nl = new NguyenLieuE(
-                        rs.getString("MaNL"),
-                        rs.getString("TenNL"),
-                        rs.getInt("SoLuongNhap"),
-                        rs.getInt("SoLuongDaBan"),
-                        rs.getInt("SoLuongConLai"),
-                        rs.getString("DonViTinh"),
-                        rs.getDate("NgayNhap"),
-                        rs.getDate("HanSuDung"),
-                        rs.getString("NhaCungCap"),
-                        rs.getBigDecimal("GiaNhap")  // Lấy dữ liệu kiểu BigDecimal
-                );
-                list.add(nl);
+    public List<NguyenLieuE> selectBySql(String sql, Object...args){
+        List<NguyenLieuE> ds = new ArrayList<>();
+        ResultSet rs = JdbcHelper.execQuery(sql, args);
+        try {
+            while(rs.next()){
+                NguyenLieuE e = new NguyenLieuE();
+                e.setMaNL(rs.getString("MaNL"));
+                e.setTenNL(rs.getString("TenNL"));
+                e.setMaNCC(rs.getString("MaNCC"));
+                e.setNgayNhap(rs.getDate("NgayNhap"));
+                e.setHanSuDung(rs.getDate("HanSuDung"));
+                e.setSoLuongTon(rs.getInt("SoLuongTon"));
+                e.setDonViTinh(rs.getString("DonViTinh"));
+                e.setGiaNhap(rs.getFloat("GiaNhap"));
+                e.setGiaXuat(rs.getFloat("GiaXuat"));
+                ds.add(e);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        };
+        return ds;
     }
 
 
-     public List<NguyenLieuE> selectByKeyword(String keyword) {
-    List<NguyenLieuE> list = new ArrayList<>();
-    String sql = "SELECT * FROM View_NguyenLieu WHERE TenNL LIKE ? OR MaNL LIKE ?";
-    try (ResultSet rs = JdbcHelper.execQuery(sql, "%" + keyword + "%", "%" + keyword + "%")) {
-        while (rs.next()) {
-            NguyenLieuE nl = new NguyenLieuE(
-                    rs.getString("MaNL"),
-                    rs.getString("TenNL"),
-                    rs.getInt("SoLuongNhap"),
-                    rs.getInt("SoLuongDaBan"),
-                    rs.getInt("SoLuongConLai"),
-                    rs.getString("DonViTinh"),
-                    rs.getDate("NgayNhap"),
-                    rs.getDate("HanSuDung"),
-                    rs.getString("NhaCungCap"),
-                    rs.getBigDecimal("GiaNhap")
-            );
-            list.add(nl);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return list;
-}
+//    public List<NguyenLieuE> selectByKeyword(String keyword) {
+//    List<NguyenLieuE> list = new ArrayList<>();
+//    String sql = "SELECT * FROM NguyenLieu WHERE TenNL LIKE ? OR MaNL LIKE ?";
+//    try (ResultSet rs = JdbcHelper.execQuery(sql, "%" + keyword + "%", "%" + keyword + "%")) {
+//        while (rs.next()) {
+//            NguyenLieuE nl = new NguyenLieuE(
+//                    rs.getString("MaNL"),
+//                    rs.getString("TenNL"),
+//                    rs.getFloat("SoLuongTon"),
+//                    rs.getString("DonViTinh"),
+//                    rs.getDate("NgayNhap"),
+//                    rs.getDate("HanSuDung"),
+//                    rs.getString("NhaCungCap"),
+//                    rs.getFloat("GiaNhap"),
+//                    rs.getFloat("GiaXuat")
+//            );
+//            list.add(nl);
+//        }
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    }
+//    return list;
+//}
     
     public NguyenLieuE getById(String maNL) {
         return this.selectById(maNL);
@@ -155,4 +151,38 @@ public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Intege
             // Xử lý lỗi theo nghiệp vụ của bạn
         }
     }
+    
+    // Hải thêm vào
+    // 1. Hàm phục vụ ComboBox: chỉ lấy MaNL và TenNL
+public List<NguyenLieuE> selectTenVaMaNL() {
+    List<NguyenLieuE> list = new ArrayList<>();
+    String sql = "SELECT MaNL, TenNL FROM NguyenLieu";
+
+    try (ResultSet rs = JdbcHelper.execQuery(sql)) {
+        while (rs.next()) {
+            NguyenLieuE nl = new NguyenLieuE();
+            nl.setMaNL(rs.getString("MaNL"));
+            nl.setTenNL(rs.getString("TenNL"));
+            list.add(nl);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+
+// 2. Hàm lấy MaNL từ TenNL
+public String getMaNLByTen(String tenNL) {
+    String sql = "SELECT MaNL FROM NguyenLieu WHERE TenNL = ?";
+    try (ResultSet rs = JdbcHelper.execQuery(sql, tenNL)) {
+        if (rs.next()) {
+            return rs.getString("MaNL");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
 }

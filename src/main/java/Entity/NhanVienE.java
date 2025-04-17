@@ -7,17 +7,35 @@ public class NhanVienE {
     private boolean vaiTro;
     private String email;
     private String hoTen;
+    private String hinh;
+    private int Trangthai;
+    
+    
     
     public NhanVienE(){
     }
-    public NhanVienE(String maNV, String tenTK, String matKhau, boolean vaiTro, String email, String hoTen) {
+
+    public NhanVienE(String maNV, String tenTK, String matKhau, boolean vaiTro, String email, String hoTen, String hinh, int Trangthai) {
         this.maNV = maNV;
         this.tenTK = tenTK;
         this.matKhau = matKhau;
         this.vaiTro = vaiTro;
         this.email = email;
         this.hoTen = hoTen;
+        this.hinh = hinh;
+        this.Trangthai = Trangthai;
     }
+
+    public int getTrangthai() {
+        return Trangthai;
+    }
+
+    public void setTrangthai(int Trangthai) {
+        this.Trangthai = Trangthai;
+    }
+
+    
+    
 
     public String getMaNV() {
         return maNV;
@@ -56,10 +74,22 @@ public class NhanVienE {
         this.hoTen = hoTen;
     }
 
-   
+    public String getHinh() {
+        return hinh;
+    }
+
+    public void setHinh(String hinh) {
+        this.hinh = hinh;
+    }
+    
+    
     @Override
     public String toString() {
         return this.hoTen;
+    }
+
+    public String getTenNV() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

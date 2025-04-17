@@ -8,11 +8,13 @@ import java.util.List;
 
 public class NhanVienDAO extends MainDAO<NhanVienE, String> {
 
-    String INSERT_SQL = "INSERT INTO NhanVien (MaNV, MatKhau, Email, VaiTro, HoTen) VALUES (?, ?, ?, ?, ?)";
-    String UPDATE_SQL = "UPDATE NhanVien SET MatKhau=?, HoTen=?, VaiTro=?, Email=? WHERE MaNV=?";
-    String DELETE_SQL = "DELETE FROM NhanVien WHERE MaNV=?";
-    String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
-    String SELECT_BY_ID_SQL = "SELECT * FROM NhanVien WHERE MaNV=?";
+    String INSERT_SQL = "INSERT INTO NhanVien (MaNV, MatKhau, Email, VaiTro, HoTen, Hinh, Trangthai) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String UPDATE_SQL = "UPDATE NhanVien SET MatKhau=?, Email=?, HoTen=?, VaiTro=?,  Hinh=?, Trangthai=? WHERE MaNV=?";
+    String DELETE_SQL = "UPDATE NhanVien SET TrangThai = 0 WHERE MaNV = ?";
+    String SELECT_ALL_SQL = "SELECT * FROM NhanVien WHERE Trangthai = 1";
+    String SELECT_BY_ID_SQL = "SELECT * FROM NhanVien WHERE MaNV=? AND TrangThai = 1";
+    String SELECT_BY_MaNV = "SELECT * FROM NhanVien WHERE MaNV=?";
+    String sql = "UPDATE NhanVien SET TrangThai = 0 WHERE MaNV = ?";
 
     @Override
     public void insert(NhanVienE e) {
@@ -21,7 +23,9 @@ public class NhanVienDAO extends MainDAO<NhanVienE, String> {
                 e.getMatKhau(),
                 e.getEmail(),
                 e.isVaiTro(),
-                e.getHoTen()
+                e.getHoTen(),
+                e.getHinh(),
+                e.getTrangthai()
         );
     }
 
@@ -29,12 +33,16 @@ public class NhanVienDAO extends MainDAO<NhanVienE, String> {
     public void update(NhanVienE e) {
         JdbcHelper.execUpdate(UPDATE_SQL,
                 e.getMatKhau(),
+                e.getEmail(),
                 e.getHoTen(),
                 e.isVaiTro(),
-                e.getEmail(),
+                e.getHinh(),
+                e.getTrangthai(),
                 e.getMaNV()
         );
     }
+
+    
 
     @Override
     public void delete(String id) {
@@ -67,6 +75,8 @@ public class NhanVienDAO extends MainDAO<NhanVienE, String> {
                 e.setEmail(rs.getString("Email"));
                 e.setHoTen(rs.getString("HoTen"));
                 e.setVaiTro(rs.getBoolean("VaiTro"));
+                e.setHinh(rs.getString("Hinh"));
+
                 ds.add(e);
             }
         } catch (Exception e) {

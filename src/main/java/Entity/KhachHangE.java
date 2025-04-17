@@ -3,23 +3,44 @@ package Entity;
 
 
 public class KhachHangE {
-     private String maKhachHang;
+    private String maKH;
+    private String tenKH;
+    private String soDienThoai;
     private String diaChi;
-
+    private String email;
     public KhachHangE() {
     }
 
-    public KhachHangE(String maKhachHang, String diaChi) {
-        this.maKhachHang = maKhachHang;
+    public KhachHangE(String maKH, String tenKH, String soDienThoai, String diaChi, String email) {
+        this.maKH = maKH;
+        this.tenKH = tenKH;
+        this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
+        this.email = email;
     }
 
-    public String getMaKhachHang() {
-        return maKhachHang;
+    public String getMaKH() {
+        return maKH;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
-        this.maKhachHang = maKhachHang;
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
     public String getDiaChi() {
@@ -29,6 +50,15 @@ public class KhachHangE {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     
     
 }

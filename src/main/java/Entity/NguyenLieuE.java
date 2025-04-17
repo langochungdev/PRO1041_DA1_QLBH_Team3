@@ -4,35 +4,33 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class NguyenLieuE {
-    private String MaNL; // Đổi từ int thành String
+    private String MaNL; 
     private String TenNL;
-    private int SoLuongTon;
-    private int SoLuongDaBan;
-    private int SoLuongConLai;
-    private String DonViTinh;
+    private String MaNCC;
     private Date NgayNhap;
     private Date HanSuDung;
-    private String NhaCungCap;
-    private BigDecimal GiaNhap;
-    
-    // Constructor
-    
+    private int SoLuongTon;
+    private String DonViTinh;
+    private float GiaNhap;
+    private float GiaXuat;
+
     public NguyenLieuE() {
     }
 
-    public NguyenLieuE(String MaNL, String TenNL, int SoLuongTon, int SoLuongDaBan, int SoLuongConLai, String DonViTinh, Date NgayNhap, Date HanSuDung, String NhaCungCap, BigDecimal GiaNhap) {
+    public NguyenLieuE(String MaNL, String TenNL, String MaNCC, Date NgayNhap, Date HanSuDung, int SoLuongTon, String DonViTinh, float GiaNhap, float GiaXuat) {
         this.MaNL = MaNL;
         this.TenNL = TenNL;
-        this.SoLuongTon = SoLuongTon;
-        this.SoLuongDaBan = SoLuongDaBan;
-        this.SoLuongConLai = SoLuongConLai;
-        this.DonViTinh = DonViTinh;
+        this.MaNCC = MaNCC;
         this.NgayNhap = NgayNhap;
         this.HanSuDung = HanSuDung;
-        this.NhaCungCap = NhaCungCap;
+        this.SoLuongTon = SoLuongTon;
+        this.DonViTinh = DonViTinh;
         this.GiaNhap = GiaNhap;
+        this.GiaXuat = GiaXuat;
     }
 
+    
+    
     public String getMaNL() {
         return MaNL;
     }
@@ -49,36 +47,12 @@ public class NguyenLieuE {
         this.TenNL = TenNL;
     }
 
-    public int getSoLuongTon() {
-        return SoLuongTon;
+    public String getMaNCC() {
+        return MaNCC;
     }
 
-    public void setSoLuongTon(int SoLuongTon) {
-        this.SoLuongTon = SoLuongTon;
-    }
-
-    public int getSoLuongDaBan() {
-        return SoLuongDaBan;
-    }
-
-    public void setSoLuongDaBan(int SoLuongDaBan) {
-        this.SoLuongDaBan = SoLuongDaBan;
-    }
-
-    public int getSoLuongConLai() {
-        return SoLuongConLai;
-    }
-
-    public void setSoLuongConLai(int SoLuongConLai) {
-        this.SoLuongConLai = SoLuongConLai;
-    }
-
-    public String getDonViTinh() {
-        return DonViTinh;
-    }
-
-    public void setDonViTinh(String DonViTinh) {
-        this.DonViTinh = DonViTinh;
+    public void setMaNCC(String MaNCC) {
+        this.MaNCC = MaNCC;
     }
 
     public Date getNgayNhap() {
@@ -97,25 +71,41 @@ public class NguyenLieuE {
         this.HanSuDung = HanSuDung;
     }
 
-    public String getNhaCungCap() {
-        return NhaCungCap;
+    public int getSoLuongTon() {
+        return SoLuongTon;
     }
 
-    public void setNhaCungCap(String NhaCungCap) {
-        this.NhaCungCap = NhaCungCap;
+    public void setSoLuongTon(int SoLuongTon) {
+        this.SoLuongTon = SoLuongTon;
     }
 
-    public BigDecimal getGiaNhap() {
+    public String getDonViTinh() {
+        return DonViTinh;
+    }
+
+    public void setDonViTinh(String DonViTinh) {
+        this.DonViTinh = DonViTinh;
+    }
+
+    public float getGiaNhap() {
         return GiaNhap;
     }
 
-    public void setGiaNhap(BigDecimal GiaNhap) {
+    public void setGiaNhap(float GiaNhap) {
         this.GiaNhap = GiaNhap;
     }
 
-    public void setGiaNhap(Double giaNhap) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public float getGiaXuat() {
+        return GiaXuat;
+    }
+
+    public void setGiaXuat(float GiaXuat) {
+        this.GiaXuat = GiaXuat;
     }
     
-
+    @Override
+    public String toString() {
+        return TenNL;  // Trả về tên nguyên liệu để hiển thị trong ComboBox
+    }
+    
 }

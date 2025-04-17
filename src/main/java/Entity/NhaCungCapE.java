@@ -48,5 +48,9 @@ public class NhaCungCapE {
         this.SDT = SDT;
     }
     
-    
+    @Override
+public String toString() {
+    return this.getTenNCC(); // Hiển thị tên trong ComboBox
+}
+
 }
