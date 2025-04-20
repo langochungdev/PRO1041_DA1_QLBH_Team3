@@ -20,24 +20,41 @@ public class LoginD extends javax.swing.JDialog {
     }
 
     
-    NhanVienDAO dao = new NhanVienDAO();
-    
+    NhanVienDAO dao = new NhanVienDAO();   
     void dangNhap() {
-        String tenTK = txtTK.getText();
-        String pw = new String(txtMK.getPassword());
-        NhanVienE nv = dao.selectById(tenTK);
+    String tenTK = txtTK.getText().trim();
+    String pw = new String(txtMK.getPassword()).trim();
 
-        if (nv == null || !nv.getMaNV().equals(tenTK)){ 
-            MsgBox.alert(this, "Sai đăng nhập");
+    if (tenTK.isEmpty() && pw.isEmpty()) {
+        MsgBox.alert(this, "Vui lòng nhập tên đăng nhập và mật khẩu!");
+        return;
+    }
+
+    if (tenTK.isEmpty()) {
+        MsgBox.alert(this, "Vui lòng nhập tên đăng nhập!");
+        return;
+    }
+
+
+    if (pw.isEmpty()) {
+        MsgBox.alert(this, "Vui lòng nhập mật khẩu!");
+        return;
+    }
+
+    // Kiểm tra tài khoản trong CSDL
+    NhanVienE nv = dao.selectById(tenTK);
+
+    if (nv == null) {
+        MsgBox.alert(this, "Sai tên đăng nhập!");
+    } else {
+        if (!nv.getMatKhau().equals(pw)) {
+            MsgBox.alert(this, "Sai mật khẩu!");
         } else {
-            if (!nv.getMatKhau().equals(pw)) {
-                MsgBox.alert(this, "sai mật khẩu");
-            } else {
-                Auth.user = nv;
-                this.dispose();
-            }
+            Auth.user = nv;
+            this.dispose();
         }
     }
+}
 
     void ketThuc() {
         if (MsgBox.confirm(this, "ban muon ket thuc ung dung?")) {
@@ -74,6 +91,9 @@ public class LoginD extends javax.swing.JDialog {
         }
         return false;
     }
+    
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -14,6 +14,7 @@ import Utils.Auth;
 //import Utils.FilePDF;
 import Utils.MailSender;
 import Utils.MsgBox;
+import Utils.PdfUtils;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
@@ -450,6 +451,51 @@ public class QLDonHangD extends javax.swing.JDialog {
     }
 }
 
+    
+    // Xuất PDF
+    private void xuatPDF_HoaDon() {
+        try {
+            String maHD = txtMaHD.getText();
+            HoaDonE hd = hoaDonDAO.selectById(maHD);
+            KhachHangE kh = khachHangDAO.selectById(hd.getMaKH());
+            List<ChiTietDonHangE> listCT = chiTietDAO.selectByMaHD(maHD);
+
+            // Đặt file chính xác
+            String filePath = "D:/HoaDon_" + maHD + ".pdf";
+            PdfUtils.xuatHoaDonPDF(hd, kh, listCT, filePath);
+
+            File file = new File(filePath);
+            if (!file.exists()) {
+                JOptionPane.showMessageDialog(null, "Lỗi: File PDF chưa được tạo.");
+                return;
+            }
+
+            JOptionPane.showMessageDialog(null, "Đã xuất PDF: " + filePath);
+
+            // Gửi email
+            String to = kh.getEmail();
+            if (to == null || to.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Khách hàng chưa có email!");
+                return;
+            }
+
+            String subject = "Hóa đơn #" + maHD;
+            String content = "Xin chào " + kh.getTenKH() + ",\n\n"
+                    + "Cảm ơn bạn đã mua hàng. Hóa đơn của bạn được đính kèm trong file PDF.\n\n"
+                    + "Trân trọng,\nCửa hàng PUCA!";
+
+            boolean success = MailSender.sendEmail(to, subject, content, file);
+            if (success) {
+                JOptionPane.showMessageDialog(null, "Đã gửi email hóa đơn!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Không thể gửi email.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi: " + e.getMessage());
+        }
+    }
     
     
 
@@ -981,53 +1027,7 @@ public class QLDonHangD extends javax.swing.JDialog {
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
-//        if (maHD == null) {
-//        MsgBox.alert(this, "Vui lòng chọn hóa đơn.");
-//        return;
-//    }
-//
-//    HoaDonE hd = hoaDonDAO.selectById(maHD);
-//    if (hd == null) {
-//        MsgBox.alert(this, "Không tìm thấy hóa đơn!");
-//        return;
-//    }
-//
-//    KhachHangE kh = khachHangDAO.selectById(hd.getMaKH());
-//    if (kh == null) {
-//        MsgBox.alert(this, "Không tìm thấy khách hàng!");
-//        return;
-//    }
-//
-//    List<ChiTietDonHangE> list = chiTietDAO.selectByMaHD(maHD);
-//    if (list.isEmpty()) {
-//        MsgBox.alert(this, "Không có sản phẩm trong đơn hàng.");
-//        return;
-//    }
-//
-//    // Tạo file PDF
-//    File pdf = FilePDF.xuatHoaDonPDF(hd, kh, list);
-//    if (pdf != null) {
-//        // Gửi email kèm PDF
-//        boolean ok = MailSender.sendEmailWithAttachment(kh.getEmail(),
-//                "HÓA ĐƠN TỪ CỬA HÀNG",
-//                "Cảm ơn quý khách đã mua hàng. Hóa đơn đính kèm.",
-//                pdf);
-//
-//        // Mở thư mục chứa file
-//        try {
-//            java.awt.Desktop.getDesktop().open(pdf.getParentFile());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (ok) {
-//            MsgBox.alert(this, "Đã gửi hóa đơn tới email khách hàng.");
-//        } else {
-//            MsgBox.alert(this, "Xuất file thành công nhưng gửi email thất bại.");
-//        }
-//    } else {
-//        MsgBox.alert(this, "Xuất file thất bại.");
-//    }
+        xuatPDF_HoaDon();
     }//GEN-LAST:event_btnXuatActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed

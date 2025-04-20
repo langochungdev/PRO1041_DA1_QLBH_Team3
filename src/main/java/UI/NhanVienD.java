@@ -90,7 +90,8 @@ public class NhanVienD extends javax.swing.JDialog {
 
         if (nv.getHinh() != null && !nv.getHinh().isEmpty()) {
             path = nv.getHinh(); // ví dụ "avt/avatar1.jpg"
-            File file = new File("src/main/resources/" + path);
+            File file = new File(path); // Đường dẫn ảnh đầy đủ
+
 
             if (file.exists()) {
                 ImageIcon icon = new ImageIcon(file.getAbsolutePath());
@@ -227,17 +228,17 @@ public class NhanVienD extends javax.swing.JDialog {
             File selectedFile = fc.getSelectedFile();
             String fileName = selectedFile.getName();
 
-            // Thư mục lưu ảnh cố định
-            File destDir = new File("src/main/resources/avt");
+            // Lưu ảnh vào thư mục ngoài ứng dụng
+            File destDir = new File("images/avt");
             if (!destDir.exists()) {
-                destDir.mkdirs(); // tạo nếu chưa có
+                destDir.mkdirs();
             }
 
             File dest = new File(destDir, fileName);
 
             try {
                 Files.copy(selectedFile.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                path = "avt/" + fileName; // lưu path tương đối trong DB
+                path = "images/avt/" + fileName;
 
                 // Hiển thị ảnh
                 ImageIcon icon = new ImageIcon(dest.getAbsolutePath());

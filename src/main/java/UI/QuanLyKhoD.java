@@ -8,11 +8,12 @@ import Entity.NguyenLieuE;
 import Entity.NhaCungCapE;
 import Utils.Auth;
 import Utils.MsgBox;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public class QuanLyKhoD extends javax.swing.JDialog {
@@ -30,7 +31,33 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         loadCboNhaCungCap();
         txtSLDaBan.setEnabled(false);
         txtSLConLai.setEnabled(false);
+        timThoiGianThuc();
+    }
 
+    void timThoiGianThuc() {
+        txtTimKiem.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                timKiem();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                timKiem();
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                timKiem();
+            }
+
+            private void timKiem() {
+                String keyword = txtTimKiem.getText().trim();
+                List<Object[]> ds = new QLKhoDAO().searchByKeyword(keyword);
+                DefaultTableModel model = (DefaultTableModel) tbNguyenLieu.getModel();
+                model.setRowCount(0);
+                for (Object[] row : ds) {
+                    model.addRow(row);
+                }
+            }
+        });
     }
 
     void filltbNguyenLieu() {
@@ -43,17 +70,20 @@ public class QuanLyKhoD extends javax.swing.JDialog {
     }
 
     void phanquyen() {
-        boolean isManager = Auth.isManager();
-        if (Auth.isManager()) {
-        } else {
-            btnThem.setEnabled(false);
-            btnXoa.setEnabled(false);
-            btnSua.setEnabled(false);
-            btnThemNCC.setEnabled(false);
-            btnSuaNCC.setEnabled(false);
-            btnXoaNCC.setEnabled(false);
-        }
+    boolean isManager = Auth.isManager();
+    if (!isManager) {
+        btnThem.setEnabled(true);
+        btnXoa.setEnabled(false);
+        btnSua.setEnabled(false);
+        btnLamMoi.setEnabled(true);
+
+        btnThemNCC.setEnabled(true);
+        btnSuaNCC.setEnabled(false);
+        btnXoaNCC.setEnabled(false);
+        btnMoi.setEnabled(true);
     }
+}
+
 
     private void fillFormNguyenLieu(String maNL) {
         QLKhoDAO dao = new QLKhoDAO();
@@ -279,26 +309,25 @@ public class QuanLyKhoD extends javax.swing.JDialog {
     }
 
     private void xoaNCC() {
-    String maNCC = txtMaNCC.getText();
+        String maNCC = txtMaNCC.getText();
 
-    if (nccdao.isNCCInUse(maNCC)) {
-        MsgBox.alert(this, "Không thể xóa. Nhà cung cấp này đang được sử dụng trong bảng Nguyên Liệu!");
-        return;
-    }
+        if (nccdao.isNCCInUse(maNCC)) {
+            MsgBox.alert(this, "Không thể xóa. Nhà cung cấp này đang được sử dụng trong bảng Nguyên Liệu!");
+            return;
+        }
 
-    if (MsgBox.confirm(this, "Bạn thực sự muốn xóa nhà cung cấp này?")) {
-        try {
-            nccdao.delete(maNCC);
-            loadTbNhaCungCap();
-            moiNCC();
-            MsgBox.alert(this, "Xóa nhà cung cấp thành công!");
-        } catch (Exception e) {
-            MsgBox.alert(this, "Lỗi xóa nhà cung cấp: " + e.getMessage());
-            e.printStackTrace();
+        if (MsgBox.confirm(this, "Bạn thực sự muốn xóa nhà cung cấp này?")) {
+            try {
+                nccdao.delete(maNCC);
+                loadTbNhaCungCap();
+                moiNCC();
+                MsgBox.alert(this, "Xóa nhà cung cấp thành công!");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Lỗi xóa nhà cung cấp: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
-}
-
 
     void moiNCC() {
         txtMaNCC.setText("");
@@ -317,18 +346,6 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         txtSDT.setText(ncc.getSDT().toString());
     }
 
-    private void setButtonState(boolean them, boolean xoa, boolean sua, boolean lamMoi) {
-        btnThem.setEnabled(them);
-        btnXoa.setEnabled(xoa);
-        btnSua.setEnabled(sua);
-        btnLamMoi.setEnabled(lamMoi);
-    }
-    private void setbtnNCC(boolean them, boolean xoa, boolean sua, boolean lamMoi) {
-        btnThemNCC.setEnabled(them);
-        btnXoaNCC.setEnabled(xoa);
-        btnSuaNCC.setEnabled(sua);
-        btnMoi.setEnabled(lamMoi);
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -399,13 +416,6 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 500));
-
-        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimKiemActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 51, 102));
@@ -419,7 +429,7 @@ public class QuanLyKhoD extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã nguyên liệu", "Tên nguyên liệu", "Nhà cung cấp", "Số lượng nhập", "Số lượng đã bán", "Số lượng còn lại kho", "Đơn vị tính", "Ngày nhập", "Hạn sử dụng", "Giá nhập", "Giá bán"
+                "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng nhập", "Số lượng đã bán", "Số lượng còn lại kho", "Đơn vị tính", "Ngày nhập", "Hạn sử dụng", "Nhà cung cấp", "Giá nhập", "Giá bán"
             }
         ));
         tbNguyenLieu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -797,11 +807,8 @@ public class QuanLyKhoD extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-    }//GEN-LAST:event_txtTimKiemActionPerformed
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         lamMoiForm();
-        setButtonState(true, false, false, true);
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void txtMaNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNLActionPerformed
@@ -812,22 +819,18 @@ public class QuanLyKhoD extends javax.swing.JDialog {
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         moiNCC();
-        setbtnNCC(true, false, false, true);
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void tbNhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhaCungCapMouseClicked
         fillFormNCC();
-        setbtnNCC(true, true, true, true);
     }//GEN-LAST:event_tbNhaCungCapMouseClicked
 
     private void btnSuaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNCCActionPerformed
         suaNCC();
-        setbtnNCC(true, true, true, true);
     }//GEN-LAST:event_btnSuaNCCActionPerformed
 
     private void btnXoaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNCCActionPerformed
         xoaNCC();
-        setbtnNCC(true, false, false, true);
     }//GEN-LAST:event_btnXoaNCCActionPerformed
 
     private void btnThemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNCCActionPerformed
@@ -836,11 +839,9 @@ public class QuanLyKhoD extends javax.swing.JDialog {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         deleteNguyenLieu();
-        setButtonState(true, false, false, true);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tbNguyenLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNguyenLieuMouseClicked
-        setButtonState(true, true, true, true);
     }//GEN-LAST:event_tbNguyenLieuMouseClicked
 
     private void tbNguyenLieuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNguyenLieuMousePressed
@@ -854,12 +855,10 @@ public class QuanLyKhoD extends javax.swing.JDialog {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         insertNguyenLieu();
-        setButtonState(true, true, true, true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         suaNguyenLieu();
-        setButtonState(true, true, true, false);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     public static void main(String args[]) {

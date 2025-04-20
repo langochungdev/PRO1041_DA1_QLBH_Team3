@@ -79,6 +79,11 @@ public Integer getSoLuongConLai(String maNL) {
     return null; // hoặc trả về 0 nếu muốn mặc định
 }
 
-    
+    public List<Object[]> searchByKeyword(String keyword) {
+        String sql = "SELECT * FROM qlKho WHERE TenNL LIKE ? OR MaNL LIKE ? OR NhaCungCap LIKE ?";
+        String[] cols = {"MaNL", "TenNL", "SoLuongNhap", "SoLuongDaBan", "SoLuongConLai", "DonViTinh", "NgayNhap", "HanSuDung", "NhaCungCap", "GiaNhap", "GiaXuat"};
+        String like = "%" + keyword + "%";
+        return getListOfArray(sql, cols, like, like, like);
+    }
 
 }

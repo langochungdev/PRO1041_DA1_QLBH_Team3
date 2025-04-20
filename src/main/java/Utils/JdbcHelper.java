@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JdbcHelper {
-//    public static final String HOSTNAME = "localhost";
-    public static final String HOSTNAME = "127.0.0.1";
+    public static final String HOSTNAME = "localhost";
+//    public static final String HOSTNAME = "127.0.0.1";
     public static final String PORT = "1433";
-    public static final String DBNAME = "y";
+    public static final String DBNAME = "QLBH";
     public static final String USERNAME = "sa";
     public static final String PASSWORD = "songlong";
 
@@ -51,26 +51,14 @@ public class JdbcHelper {
         }
     }
     
-//    public static ResultSet execQuery(String sql, Object...args) {
-//        PreparedStatement ps = getPpsm(sql, args);
-//        try {
-//            return ps.executeQuery();
-//        }catch(SQLException e){
-//            throw new RuntimeException(e);
-//        }
-//    }
-    
-    public static ResultSet execQuery(String sql, Object... args) {
-    PreparedStatement ps = getPpsm(sql, args);
-    if (ps == null) {
-        throw new RuntimeException("PreparedStatement is null!");
+    public static ResultSet execQuery(String sql, Object...args) {
+        PreparedStatement ps = getPpsm(sql, args);
+        try {
+            return ps.executeQuery();
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
-    try {
-        return ps.executeQuery();
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    }
-}
 
     
     public static Object value(String sql, Object...args){

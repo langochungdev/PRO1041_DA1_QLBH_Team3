@@ -105,6 +105,7 @@ UI\CaLamD$2.class
 UI\QLDonHangD$19.class
 Utils\XImage.class
 UI\QLDonHangD.class
+Utils\PdfUtils.class
 DAO\NguyenLieuDAO.class
 UI\TaiChinhD$6.class
 UI\ChaoD$2.class
