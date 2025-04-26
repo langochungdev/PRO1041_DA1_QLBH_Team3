@@ -19,7 +19,6 @@ public class TaiChinhD extends javax.swing.JDialog {
         fillTbDoanhThu();
         fillTbCongNo(null);
     }
-
     public void selectTab(int index) {
         tabs.setSelectedIndex(index);
     }
@@ -119,11 +118,11 @@ public class TaiChinhD extends javax.swing.JDialog {
 
             },
             new String [] {
-                "MaHD", "Mã KH", "Tên KH", "SDT", "Số tiền", "Ngày đặt", "Trạng thái"
+                "MaHD", "Mã KH", "Tên KH", "SDT", "Ngày đặt", "Số tiền", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, true, false
+                true, false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -288,14 +287,7 @@ public class TaiChinhD extends javax.swing.JDialog {
 
     private void cbbSortTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortTrangThaiActionPerformed
         String selectedItem = cbbSortTrangThai.getSelectedItem().toString();
-
-        List<Object[]> dsCongNo = tcdao.getCongNo(selectedItem);
-
-        DefaultTableModel model = (DefaultTableModel) tbCongNo.getModel();
-        model.setRowCount(0);
-        for (Object[] row : dsCongNo) {
-            model.addRow(row);
-        }
+        fillTbCongNo(selectedItem);
     }//GEN-LAST:event_cbbSortTrangThaiActionPerformed
 
     private void rdoDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaThanhToanActionPerformed
@@ -319,7 +311,6 @@ public class TaiChinhD extends javax.swing.JDialog {
             dh.setVisible(true);
             dh.selectTab(1);
             dh.fillChiTietHoaDon(MaHD);
-//            dh.hienThiChiTietDonHang(MaHD);
         }
     }//GEN-LAST:event_tbCongNoMouseClicked
 

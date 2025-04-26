@@ -94,7 +94,7 @@ AFTER INSERT, UPDATE, DELETE
 AS
 BEGIN
     UPDATE HoaDon
-    SET TongTien = (SELECT SUM(SoLuong * ThanhTien)
+    SET TongTien = (SELECT SUM(ThanhTien)
                     FROM ChiTietHoaDon 
                     WHERE ChiTietHoaDon.MaHD = HoaDon.MaHD)
     WHERE MaHD IN (SELECT DISTINCT MaHD FROM inserted UNION SELECT DISTINCT MaHD FROM deleted);
@@ -112,13 +112,13 @@ INSERT INTO NhanVien (MaNV, MatKhau, Email, HoTen, VaiTro, Hinh, TrangThai) VALU
 	('nv2', '123', '', N'nhan vien 2', 0, '', 0);
 
 INSERT INTO CaLam (MaCa, MaNV, NgayLam, CaLam) VALUES
-('MACA1', 'hung', '2025-04-01', 'Ca 1'),
-('MACA2', 'kha', '2025-04-01', 'Ca 2'),
-('MACA3', 'trung', '2025-04-01', 'Ca 3'),
-('MACA4', 'hai', '2025-04-02', 'Ca 1'),
-('MACA5', 'hung', '2025-04-02', 'Ca 2'),
-('MACA6', 'kha', '2025-04-02', 'Ca 3'),
-('MACA7', 'trung', '2025-04-03', 'Ca 1');
+('CA001', 'hung', '2025-04-01', 'Ca 1'),
+('CA002', 'kha', '2025-04-01', 'Ca 2'),
+('CA003', 'trung', '2025-04-01', 'Ca 3'),
+('CA004', 'hai', '2025-04-02', 'Ca 1'),
+('CA005', 'hung', '2025-04-02', 'Ca 2'),
+('CA006', 'kha', '2025-04-02', 'Ca 3'),
+('CA007', 'trung', '2025-04-03', 'Ca 1');
 
 INSERT INTO NhaCungCap (MaNCC, TenNCC, DiaChi, SoDienThoai) VALUES
 ('NCC01', N'Công ty A', N'123 Đường A, TP.HCM', '0909123456'),
@@ -207,18 +207,15 @@ SELECT
         WHEN hd.NgayThanhToan IS NULL THEN hd.TongTien
         ELSE 0
     END) AS DuNo,
-
     (
         SELECT ISNULL(SUM(SoLuongTon * GiaNhap), 0)
         FROM NguyenLieu nl
         WHERE FORMAT(nl.NgayNhap, 'yyyy-MM') = FORMAT(ISNULL(hd.NgayThanhToan, hd.NgayDatHang), 'yyyy-MM')
     ) AS TongTienNhapHang,
-
     SUM(CASE 
         WHEN hd.NgayThanhToan IS NOT NULL THEN hd.TongTien
         ELSE 0
     END) AS TongTienDaThanhToan,
-
     (
         SUM(hd.TongTien) -
         (

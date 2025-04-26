@@ -160,8 +160,8 @@
                         <Column editable="false" title="M&#xe3; KH" type="java.lang.Object"/>
                         <Column editable="false" title="T&#xea;n KH" type="java.lang.Object"/>
                         <Column editable="false" title="SDT" type="java.lang.Object"/>
-                        <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n" type="java.lang.Object"/>
                         <Column editable="true" title="Ng&#xe0;y &#x111;&#x1eb7;t" type="java.lang.Object"/>
+                        <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n" type="java.lang.Object"/>
                         <Column editable="false" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
                       </Table>
                     </Property>

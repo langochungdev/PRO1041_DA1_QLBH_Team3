@@ -6,8 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Integer thành String
-
+public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { 
     String INSERT_SQL = "INSERT INTO NguyenLieu (MaNL, TenNL, SoLuongTon, DonViTinh, NgayNhap, HanSuDung, MaNCC, GiaNhap, GiaXuat) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     String UPDATE_SQL = "UPDATE NguyenLieu SET TenNL=?, MaNCC=?, NgayNhap=?, HanSuDung=?, SoLuongTon=?, DonViTinh=?, GiaNhap=?, GiaXuat=? WHERE MaNL=?";
     String DELETE_SQL = "DELETE FROM NguyenLieu WHERE MaNL=?";
@@ -85,37 +84,12 @@ public class NguyenLieuDAO extends MainDAO<NguyenLieuE, String> { // Thay Intege
         return ds;
     }
 
-
-//    public List<NguyenLieuE> selectByKeyword(String keyword) {
-//    List<NguyenLieuE> list = new ArrayList<>();
-//    String sql = "SELECT * FROM NguyenLieu WHERE TenNL LIKE ? OR MaNL LIKE ?";
-//    try (ResultSet rs = JdbcHelper.execQuery(sql, "%" + keyword + "%", "%" + keyword + "%")) {
-//        while (rs.next()) {
-//            NguyenLieuE nl = new NguyenLieuE(
-//                    rs.getString("MaNL"),
-//                    rs.getString("TenNL"),
-//                    rs.getFloat("SoLuongTon"),
-//                    rs.getString("DonViTinh"),
-//                    rs.getDate("NgayNhap"),
-//                    rs.getDate("HanSuDung"),
-//                    rs.getString("NhaCungCap"),
-//                    rs.getFloat("GiaNhap"),
-//                    rs.getFloat("GiaXuat")
-//            );
-//            list.add(nl);
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//    }
-//    return list;
-//}
     
     public NguyenLieuE getById(String maNL) {
         return this.selectById(maNL);
     }
 
   
-
     public List<NguyenLieuE> getAll() {
         return this.selectAll();
     }

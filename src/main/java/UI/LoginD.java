@@ -167,8 +167,6 @@ public class LoginD extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Tên đăng nhập:");
         jPanel7.add(jLabel4, java.awt.BorderLayout.CENTER);
-
-        txtTK.setText("hung");
         jPanel7.add(txtTK, java.awt.BorderLayout.PAGE_END);
 
         jPanel5.add(jPanel7);
@@ -179,8 +177,6 @@ public class LoginD extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Mật khẩu:");
         jPanel6.add(jLabel3, java.awt.BorderLayout.CENTER);
-
-        txtMK.setText("123");
         jPanel6.add(txtMK, java.awt.BorderLayout.PAGE_END);
 
         jPanel5.add(jPanel6);

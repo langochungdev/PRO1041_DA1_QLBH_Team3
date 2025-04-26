@@ -831,10 +831,12 @@ public class QuanLyKhoD extends javax.swing.JDialog {
 
     private void btnXoaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNCCActionPerformed
         xoaNCC();
+        loadCboNhaCungCap();
     }//GEN-LAST:event_btnXoaNCCActionPerformed
 
     private void btnThemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNCCActionPerformed
         themNCC();
+        loadCboNhaCungCap();
     }//GEN-LAST:event_btnThemNCCActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
